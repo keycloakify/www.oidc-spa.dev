@@ -24,10 +24,13 @@ export default function Clients() {
   useEffect(() => {
     const carousel = new Swiper('.clients-carousel', {
       slidesPerView: 'auto',
-      spaceBetween: 64,
+      //spaceBetween: 64,
+      spaceBetween: 100,
       centeredSlides: true,
-      loop: true,
-      speed: 5000,
+      //loop: true,
+      loop: false,
+      //speed: 5000,
+      speed: Infinity,
       noSwiping: true,
       noSwipingClass: 'swiper-slide',
       autoplay: {
@@ -53,6 +56,7 @@ export default function Clients() {
             <div className="clients-carousel swiper-container relative before:absolute before:inset-0 before:w-32 before:z-10 before:pointer-events-none before:bg-gradient-to-r before:from-slate-900 after:absolute after:inset-0 after:left-auto after:w-32 after:z-10 after:pointer-events-none after:bg-gradient-to-l after:from-slate-900">
               <div className="swiper-wrapper !ease-linear select-none items-center">
                 {/* Carousel items */}
+                {/*
                 <div className="swiper-slide !w-auto">
                   <Image src={Client01} alt="Client 01" width={110} height={21} />
                 </div>
@@ -80,6 +84,7 @@ export default function Clients() {
                 <div className="swiper-slide !w-auto">
                   <Image className="mt-2" src={Client09} alt="Client 09" width={92} height={28} />
                 </div>
+                */}
               </div>
             </div>
           </div>

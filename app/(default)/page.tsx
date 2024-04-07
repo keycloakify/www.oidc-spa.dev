@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Home - Stellar',
-  description: 'Page description',
+  title: 'oidc-spa',
+  description: 'Openid connect client for Single Page Applications',
 }
 
 import Hero from '@/components/hero'
@@ -18,15 +18,15 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Clients />
-      <Features />
       <Features02 />
       <Features03 />
-      <TestimonialsCarousel />
-      <Features04 />
+      {/*<Clients />*/}
+      {/*<Features />*/}
+      {/*<Features04 />*/}
       <Pricing />
+      <TestimonialsCarousel />
       <Testimonials />
-      <Cta />
+      {/*<Cta />*/}
     </>
   )
 }
