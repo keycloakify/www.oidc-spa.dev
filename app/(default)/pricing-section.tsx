@@ -20,7 +20,8 @@ export default function PricingSection() {
             </div>
             <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">It is Free and Open source software</h2>
             <p className="text-lg text-slate-400">
-              It's free now and forever. It's an MIT licensed open source project. You can use it in your commercial projects without any restrictions.
+              It's an MIT licensed open source project.<br/>
+              You can use it in your commercial projects without any restrictions.
             </p>
           </div>
           {/*<Pricing />*/}

@@ -1,7 +1,8 @@
-import Image from 'next/image'
+//import Image from 'next/image'
 import Highlighter, { HighlighterItem } from './highlighter'
 
-import FeatureImg04 from '@/public/images/feature-image-04.png'
+//import FeatureImg04 from '@/public/images/feature-image-04.png'
+
 
 export default function Features03() {
   return (
@@ -25,8 +26,16 @@ export default function Features03() {
 
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">More than a login box</h2>
-            <p className="text-lg text-slate-400">There are many variations available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+            <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">
+              Sovrein Open source Identity Management
+            </h2>
+            <p className="text-lg text-slate-400"> 
+              OIDC-SPA is part of an initiative aimed at delivering a comprehensive solution for open source, self-hostable user identity management.
+              The objective is to offer both user and development experiences comparable to those of platforms like Auth0, Okta, etc.<br/>
+              While Keycloak offers extensive capabilities, its complexity can make it challenging to use and integrate. 
+              OIDC-SPA and Keycloakify seek to simplify Keycloak, ensuring that opting for an open source solution does not compromise user experience 
+              or developer productivity.
+            </p>
           </div>
 
           <div className="max-w-3xl mx-auto">
@@ -38,7 +47,11 @@ export default function Features03() {
                     <div className="absolute bottom-0 translate-y-1/2 left-1/2 -translate-x-1/2 pointer-events-none -z-10 w-1/2 aspect-square" aria-hidden="true">
                       <div className="absolute inset-0 translate-z-0 bg-purple-500 rounded-full blur-[120px]" />
                     </div>
-                    <Image src={FeatureImg04} width={768} height={400} alt="Feature 04" />
+                    {/*<Image src={FeatureImg04} width={768} height={400} alt="Feature 04" />*/}
+                    <video className="css-w46r07-GlVideo-root-GlArticle-video-Home-articleVideo" loop autoPlay playsInline muted>
+                      <source src="/videos/Login_rotato_render.mp4" type="video/mp4; codecs=&quot;hvc1&quot;"/>
+                      <source src="/videos/Login_rotato_render.webm" type="video/webm"/>
+                    </video>
                   </div>
                 </HighlighterItem>
               </Highlighter>

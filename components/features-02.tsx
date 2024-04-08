@@ -158,7 +158,7 @@ export default function Features02() {
                 <h4 className="font-medium text-slate-50">React Integration</h4>
               </div>
               <p className="text-sm text-slate-400">
-                oidc-spa is not tie to any specific framework however we do provide a React API and example project that shows how to integrate with Tanstack or React Router.  
+                oidc-spa isn't tied to any specific framework however we do provide a React API and example projects that shows how to integrate with Tanstack or React Router.  
               </p>
             </div>
             {/* Feature */}
