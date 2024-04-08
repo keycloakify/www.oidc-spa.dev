@@ -13,12 +13,15 @@ export default function Footer() {
             <div className="h-full flex flex-col sm:flex-row lg:flex-col justify-between">
               <div className="mb-4 sm:mb-0">
                 <div className="mb-4">
-                  <Logo />
+                  {/*<Logo />*/}
                 </div>
+                {/*
                 <div className="text-sm text-slate-300">© Cruip.com <span className="text-slate-500">-</span> All rights reserved.</div>
+  */}
               </div>
               {/* Social links */}
               <ul className="flex">
+                {/*
                 <li>
                   <a className="flex justify-center items-center text-purple-500 hover:text-purple-400 transition duration-150 ease-in-out" href="#0" aria-label="Twitter">
                     <svg className="w-8 h-8 fill-current" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -40,11 +43,13 @@ export default function Footer() {
                     </svg>
                   </a>
                 </li>
+              */}
               </ul>
             </div>
           </div>
 
           {/* 2nd block */}
+          {/*
           <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
             <h6 className="text-sm text-slate-50 font-medium mb-2">Products</h6>
             <ul className="text-sm space-y-2">
@@ -65,8 +70,10 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+          */}
 
           {/* 3rd block */}
+          {/*
           <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
             <h6 className="text-sm text-slate-50 font-medium mb-2">Company</h6>
             <ul className="text-sm space-y-2">
@@ -87,8 +94,10 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+          */}
 
           {/* 4th block */}
+          {/*
           <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
             <h6 className="text-sm text-slate-50 font-medium mb-2">Resources</h6>
             <ul className="text-sm space-y-2">
@@ -103,8 +112,10 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+          */}
 
           {/* 5th block */}
+          {/*
           <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
             <h6 className="text-sm text-slate-50 font-medium mb-2">Legals</h6>
             <ul className="text-sm space-y-2">
@@ -122,6 +133,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+          */}
 
         </div>
 

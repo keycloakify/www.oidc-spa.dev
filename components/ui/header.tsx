@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Logo from './logo'
 import MobileMenu from './mobile-menu'
+import GithubBtn from "react-github-btn";
 
 export default function Header() {
   return (
@@ -19,19 +20,28 @@ export default function Header() {
             {/* Desktop menu links */}
             <ul className="flex grow justify-center flex-wrap items-center">
               <li>
-                <Link className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out" href="/about">About</Link>
+                <a 
+                  target="_blank"
+                className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out" 
+                href="https://github.com/keycloakify/oidc-spa">
+                  GitHub
+                </a>
               </li>
               <li>
-                <Link className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out" href="/integrations">Integrations</Link>
+                <a 
+                  className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out" 
+                  href="https://docs.oidc-spa.dev/"
+                >
+                  Documentation
+                </a>
               </li>
               <li>
-                <Link className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out" href="/pricing">Pricing</Link>
-              </li>
-              <li>
-                <Link className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out" href="/customers">Customers</Link>
-              </li>
-              <li>
-                <Link className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out" href="/changelog">Changelog</Link>
+                <a
+                  className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
+                  href="#pricing"
+                >
+                  Pricing
+                </a>
               </li>
             </ul>
 
@@ -39,6 +49,7 @@ export default function Header() {
 
           {/* Desktop sign in links */}
           <ul className="flex-1 flex justify-end items-center">
+            {/*
             <li>
               <Link className="font-medium text-sm text-slate-300 hover:text-white whitespace-nowrap transition duration-150 ease-in-out" href="/signin">Sign in</Link>
             </li>
@@ -49,6 +60,21 @@ export default function Header() {
                 </span>
               </Link>
             </li>
+            */}
+                        <GithubBtn
+                href="https://github.com/keycloakify/oidc-spa"
+                data-color-scheme={[
+                    "no-preference: light;",
+                    ...["light", "dark"].map(
+                        osPref => `${osPref}: dark;`,
+                    ),
+                ].join("\n")}
+                data-icon="octicon-star"
+                data-size="large"
+                data-show-count={`true`}
+            ></GithubBtn>
+
+
           </ul>
 
           <MobileMenu />

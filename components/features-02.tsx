@@ -6,6 +6,8 @@ import FeatureImg01 from '@/public/images/feature-image-01.png'
 import FeatureImg02 from '@/public/images/feature-image-02.png'
 import FeatureImg03 from '@/public/images/feature-image-03.png'
 
+const linkClassName="font-medium text-sm text-slate-300 hover:text-white ml-1 transition duration-150 ease-in-out"
+
 export default function Features02() {
   return (
     <section className="relative">
@@ -26,7 +28,7 @@ export default function Features02() {
             </h2>
             <p className="text-lg text-slate-400">
             oidc-spa is a generic OpenID Connect client NPM module for Single Page Applications. <br/>
-            It is a library that you use to redirect your users to an authentication server such as Keycloak when they click on your Sign-in or Sign-up button.
+            It is a library that you use to redirect your users to an authentication server such as Keycloak when they click on your Sign-in button.
             </p>
           </div>
 
@@ -145,8 +147,10 @@ export default function Features02() {
                 <h4 className="font-medium text-slate-50">Accessible to all skill levels</h4>
               </div>
               <p className="text-sm text-slate-400">
-                In the documentation, we do not assume your are an expert in OIDC or Keycloak. 
-                We provide comprehensive guidance from beginning to end and do our best to demystify the jargon.  
+                In <a className={linkClassName} target="_blank" href="https://docs.oidc-spa.dev/" >the documentation</a>, 
+                we do not assume that you are an expert in OIDC or Keycloak. 
+                We offer comprehensive guidance from start to finish, aiming to demystify the technical 
+                jargon.
               </p>
             </div>
             {/* Feature */}
@@ -158,7 +162,18 @@ export default function Features02() {
                 <h4 className="font-medium text-slate-50">React Integration</h4>
               </div>
               <p className="text-sm text-slate-400">
-                oidc-spa isn't tied to any specific framework however we do provide a React API and example projects that shows how to integrate with Tanstack or React Router.  
+                The oidc-spa is not limited to any particular framework.  
+                However, we provide a React API and example projects demonstrating integration with 
+                <a
+                  target="_blank"
+                  href="https://docs.oidc-spa.dev/example-setups/tanstack-router"
+                  className={linkClassName}
+                >Tanstack</a> or 
+                <a
+                  target="_blank"
+                  href="https://docs.oidc-spa.dev/example-setups/react-router"
+                  className={linkClassName}
+                >React Router</a>.
               </p>
             </div>
             {/* Feature */}
@@ -206,7 +221,15 @@ export default function Features02() {
                 <h4 className="font-medium text-slate-50">Auto logout</h4>
               </div>
               <p className="text-sm text-slate-400">
-                Easy implementation of auto logout after a set period of inactivity. Are you still there? You will be logged out in 10...9...
+                Effortless setup for 
+                <a
+                  target="_blank"
+                  href="https://docs.oidc-spa.dev/documentation/auto-logout"
+                  className={linkClassName}
+                >
+                automatic logout after a specified period of inactivity
+                </a>
+                . Are you still there? You will be automatically logged out in 10...9...
                 </p>
             </div>
           </div>

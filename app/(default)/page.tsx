@@ -24,7 +24,7 @@ export default function Home() {
       {/*<Features />*/}
       {/*<Features04 />*/}
       <Pricing />
-      <TestimonialsCarousel />
+      {/*<TestimonialsCarousel /> to use */}
       <Testimonials />
       {/*<Cta />*/}
     </>

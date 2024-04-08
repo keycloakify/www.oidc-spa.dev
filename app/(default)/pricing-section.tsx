@@ -4,7 +4,7 @@ import Pricing from '@/components/pricing'
 
 export default function PricingSection() {
   return (
-    <section className="relative">
+    <section className="relative" id="pricing">
       {/* Radial gradient */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10" aria-hidden="true">
         <div className="absolute flex items-center justify-center top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 w-1/3 aspect-square">
@@ -14,11 +14,11 @@ export default function PricingSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="py-12 md:py-20">
           {/* Content */}
-          <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+          <div className="max-w-3xl mx-auto text-center pb-5 md:pb-8">
             <div>
               <div className="inline-flex font-medium bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-purple-200 pb-3">Pricing</div>
             </div>
-            <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">It is Free and Open source software</h2>
+            <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">Free and Open source software</h2>
             <p className="text-lg text-slate-400">
               It's an MIT licensed open source project.<br/>
               You can use it in your commercial projects without any restrictions.
