@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Illustration from '@/public/images/page-illustration.svg'
 import Pricing from '@/components/pricing'
+import { linkClassName } from "@/components/utils/linkClassName";
 
 export default function PricingSection() {
   return (
@@ -20,7 +21,12 @@ export default function PricingSection() {
             </div>
             <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">Free and Open source software</h2>
             <p className="text-lg text-slate-400">
-              It's an MIT licensed open source project.<br/>
+              It's <a 
+                target="_blank" 
+                href="https://github.com/keycloakify/oidc-spa?tab=MIT-1-ov-file#readme"
+                className={linkClassName}
+              >an MIT licensed</a>&nbsp;
+              open source project.<br/>
               You can use it in your commercial projects without any restrictions.
             </p>
           </div>
