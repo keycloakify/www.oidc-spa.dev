@@ -2,6 +2,7 @@
 import Highlighter, { HighlighterItem } from './highlighter'
 
 //import FeatureImg04 from '@/public/images/feature-image-04.png'
+import { linkClassName } from "@/components/utils/linkClassName";
 
 
 export default function Features03() {
@@ -33,7 +34,7 @@ export default function Features03() {
               OIDC-SPA is part of an initiative aimed at delivering a comprehensive solution for open source, self-hostable user identity management.
               The objective is to offer both user and development experiences comparable to those of platforms like Auth0, Okta, etc.<br/>
               While Keycloak offers extensive capabilities, its complexity can make it challenging to use and integrate. 
-              OIDC-SPA and Keycloakify seek to simplify Keycloak, ensuring that opting for an open source solution does not compromise user experience 
+              OIDC-SPA and <a href="https://keycloakify.dev" className={linkClassName}>Keycloakify</a> seek to simplify Keycloak, ensuring that opting for an open source solution does not compromise user experience 
               or developer productivity.
             </p>
           </div>

@@ -6,7 +6,7 @@ import FeatureImg01 from '@/public/images/feature-image-01.png'
 import FeatureImg02 from '@/public/images/feature-image-02.png'
 import FeatureImg03 from '@/public/images/feature-image-03.png'
 
-const linkClassName="font-medium text-sm text-slate-300 hover:text-white ml-1 transition duration-150 ease-in-out"
+import { linkClassName } from "@/components/utils/linkClassName";
 
 export default function Features02() {
   return (
