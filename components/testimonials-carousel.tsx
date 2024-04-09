@@ -54,10 +54,12 @@ export default function TestimonialsCarousel() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
             <div>
-              <div className="inline-flex font-medium bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-purple-200 pb-3">The security first platform</div>
+              <div className="inline-flex font-medium bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-purple-200 pb-3">Batteries included</div>
             </div>
-            <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">Spot issues faster</h2>
-            <p className="text-lg text-slate-400">All the lorem ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+            <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">We got you covered</h2>
+            <p className="text-lg text-slate-400">
+             Oidc-spa provides simples solution all common usecases. 
+            </p>
           </div>
 
           {/* Carousel built with Swiper.js [https://swiperjs.com/] */}
@@ -77,11 +79,11 @@ export default function TestimonialsCarousel() {
                     <div className="flex flex-col p-6 h-full">
                       <Image className="mb-3" src={CarouselImg01} width={56} height={56} alt="Icon 01" />
                       <div className="grow">
-                        <div className="font-bold text-lg mb-1">Anonymous User</div>
-                        <div className="text-slate-400 mb-3">Incorporate rich user profiling, and facilitate more transactions.</div>
+                        <div className="font-bold text-lg mb-1">Auto Logout</div>
+                        <div className="text-slate-400 mb-3">Automatically logging out your user after a set period of inactivity on your app.</div>
                       </div>
                       <div className="text-right">
-                        <a className="text-sm font-medium text-slate-300 hover:text-white inline-flex items-center transition duration-150 ease-in-out group" href="#0">Learn More <span className="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></a>
+                        <a className="text-sm font-medium text-slate-300 hover:text-white inline-flex items-center transition duration-150 ease-in-out group" href="https://docs.oidc-spa.dev/documentation/auto-logout">Learn More <span className="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></a>
                       </div>
                     </div>
                   </div>
@@ -97,11 +99,13 @@ export default function TestimonialsCarousel() {
                     <div className="flex flex-col p-6 h-full">
                       <Image className="mb-3" src={CarouselImg02} width={56} height={56} alt="Icon 01" />
                       <div className="grow">
-                        <div className="font-bold text-lg mb-1">Bot Detection</div>
-                        <div className="text-slate-400 mb-3">Incorporate rich user profiling, and facilitate more transactions.</div>
+                        <div className="font-bold text-lg mb-1">Error management</div>
+                        <div className="text-slate-400 mb-3">
+                        Swiftly recover when the auth server is down or misconfigured.
+                        </div>
                       </div>
                       <div className="text-right">
-                        <a className="text-sm font-medium text-slate-300 hover:text-white inline-flex items-center transition duration-150 ease-in-out group" href="#0">Learn More <span className="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></a>
+                        <a className="text-sm font-medium text-slate-300 hover:text-white inline-flex items-center transition duration-150 ease-in-out group" href="https://docs.oidc-spa.dev/documentation/error-management">Learn More <span className="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></a>
                       </div>
                     </div>
                   </div>
@@ -117,11 +121,11 @@ export default function TestimonialsCarousel() {
                     <div className="flex flex-col p-6 h-full">
                       <Image className="mb-3" src={CarouselImg03} width={56} height={56} alt="Icon 01" />
                       <div className="grow">
-                        <div className="font-bold text-lg mb-1">Social integrations</div>
-                        <div className="text-slate-400 mb-3">Incorporate rich user profiling, and facilitate more transactions.</div>
+                        <div className="font-bold text-lg mb-1">Mock adapter</div>
+                        <div className="text-slate-400 mb-3">Mock implementation of the adapter for testing purpose. Spoof user identity.</div>
                       </div>
                       <div className="text-right">
-                        <a className="text-sm font-medium text-slate-300 hover:text-white inline-flex items-center transition duration-150 ease-in-out group" href="#0">Learn More <span className="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></a>
+                        <a className="text-sm font-medium text-slate-300 hover:text-white inline-flex items-center transition duration-150 ease-in-out group" href="https://docs.oidc-spa.dev/documentation/mock">Learn More <span className="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></a>
                       </div>
                     </div>
                   </div>
@@ -137,11 +141,11 @@ export default function TestimonialsCarousel() {
                     <div className="flex flex-col p-6 h-full">
                       <Image className="mb-3" src={CarouselImg04} width={56} height={56} alt="Icon 01" />
                       <div className="grow">
-                        <div className="font-bold text-lg mb-1">Progressive Profiling</div>
-                        <div className="text-slate-400 mb-3">Incorporate rich user profiling, and facilitate more transactions.</div>
+                        <div className="font-bold text-lg mb-1">React integration</div>
+                        <div className="text-slate-400 mb-3">Use our React hooks and integrate with your favorite routing library.</div>
                       </div>
                       <div className="text-right">
-                        <a className="text-sm font-medium text-slate-300 hover:text-white inline-flex items-center transition duration-150 ease-in-out group" href="#0">Learn More <span className="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></a>
+                        <a className="text-sm font-medium text-slate-300 hover:text-white inline-flex items-center transition duration-150 ease-in-out group" href="https://docs.oidc-spa.dev/example-setups/tanstack-router">Learn More <span className="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></a>
                       </div>
                     </div>
                   </div>
@@ -157,11 +161,11 @@ export default function TestimonialsCarousel() {
                     <div className="flex flex-col p-6 h-full">
                       <Image className="mb-3" src={CarouselImg05} width={56} height={56} alt="Icon 05" />
                       <div className="grow">
-                        <div className="font-bold text-lg mb-1">Secure Access</div>
-                        <div className="text-slate-400 mb-3">Incorporate rich user profiling, and facilitate more transactions.</div>
+                        <div className="font-bold text-lg mb-1">Keycloak configuration</div>
+                        <div className="text-slate-400 mb-3">Intimidated by the Keycloak admin panel? Let us guide you!</div>
                       </div>
                       <div className="text-right">
-                        <a className="text-sm font-medium text-slate-300 hover:text-white inline-flex items-center transition duration-150 ease-in-out group" href="#0">Learn More <span className="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></a>
+                        <a className="text-sm font-medium text-slate-300 hover:text-white inline-flex items-center transition duration-150 ease-in-out group" href="https://docs.oidc-spa.dev/resources/usage-with-keycloak">Learn More <span className="tracking-normal text-purple-500 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span></a>
                       </div>
                     </div>
                   </div>
