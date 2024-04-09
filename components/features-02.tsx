@@ -24,11 +24,11 @@ export default function Features02() {
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
             
             <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">
-              Let's integrate Keycloak with your Vite project.
+              Let's integrate Keycloak with your web application.
             </h2>
             <p className="text-lg text-slate-400">
-            Oidc-spa is a generic OpenID Connect client NPM module for Single Page Applications. <br/>
-            It is a library that you use to redirect your users to an authentication server such as Keycloak when they click on your Sign-in button.
+            Oidc-spa is a generic OpenID Connect client for Single Page Applications (e.g: Vite). <br/>
+            It is a library that you use to redirect your users to an authentication server like Keycloak when they click on your Sign-in button.
             </p>
           </div>
 
@@ -162,7 +162,7 @@ export default function Features02() {
                 <h4 className="font-medium text-slate-50">React Integration</h4>
               </div>
               <p className="text-sm text-slate-400">
-                The Oidc-spa is not limited to any particular framework.  
+                Oidc-spa is not tied to any particular UI framework.  
                 However, we provide a React API and example projects demonstrating integration with 
                 <a
                   target="_blank"
@@ -184,7 +184,7 @@ export default function Features02() {
                 </svg>
                 <h4 className="font-medium text-slate-50">TypeScript</h4>
               </div>
-              <p className="text-sm text-slate-400">Expect best in class type safety: Enhanced API response types based on usage context. Optional Zod integration for validating the user profile.</p>
+              <p className="text-sm text-slate-400">Expect best in class type safety: Enhanced API response types based on usage context. Optional Zod integration for validating the user profile from the JWT.</p>
             </div>
             {/* Feature */}
             <div>
@@ -208,7 +208,7 @@ export default function Features02() {
                 <h4 className="font-medium text-slate-50">Minimal API surface</h4>
               </div>
               <p className="text-sm text-slate-400">
-                The library indicates whether the user is authenticated. If not, you receive a <code>login()</code> function. If they are, you obtain the user profile, a bearer token for calling your API, and a <code>logout()</code> function. That's all you need.
+                The library indicates whether the user is authenticated. If they are, you obtain the user profile, a bearer token for calling your API, and a <code>logout()</code> function. That's all you need.
               </p>
             </div>
             {/* Feature */}

@@ -28,11 +28,31 @@ export default function Features03() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
             <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">
-              Sovrein Open source Identity Management
+              Sovereign and Open source Identity Management
             </h2>
             <p className="text-lg text-slate-400"> 
               Oidc-spa like <a href="https://keycloakify.dev" className={linkClassName} target="_blank">Keycloakify</a> is an initiative aimed at delivering a comprehensive solution for open source, self-hostable user identity management.
-              The objective is to offer both user and development experiences comparable to those of platforms like Auth0, Okta, etc.<br/>
+              The objective is to offer both user and development experiences comparable to those of platforms like 
+              <a
+                target="_blank"
+                href="https://auth0.com"
+                className={linkClassName}
+              >Auth0</a>, 
+              <a
+                target="_blank"
+                href="https://www.okta.com"
+                className={linkClassName}
+              >
+              Okta
+              </a>,
+              <a
+                target="_blank"
+                href="https://clerk.com"
+                className={linkClassName}
+              >
+              Clerk
+              </a>
+              , etc.<br/>
               While Keycloak offers extensive capabilities, its complexity can make it challenging to use and integrate. 
               Oidc-spa and <a href="https://keycloakify.dev" className={linkClassName} target="_blank">Keycloakify</a> seek to simplify Keycloak, ensuring that opting for an open source solution does not compromise user experience 
               or developer productivity.
