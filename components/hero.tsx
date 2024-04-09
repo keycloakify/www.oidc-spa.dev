@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Particles from './particles'
 import Illustration from '@/public/images/glow-bottom.svg'
+import LogoImg from '@/public/images/logo.svg'
 
 export default function Hero() {
   return (
@@ -33,7 +34,16 @@ export default function Hero() {
             </div>
             */}
             <h1 className="h1 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4" data-aos="fade-down">
-              OIDC SPA
+              <span className='inline-flex items-center'>
+              <Image 
+                  style={{ position: "relative", left: "2px" }} 
+                  src={LogoImg} 
+                  priority 
+                  alt="oidc-spa" 
+                  className="w-12 h-12 md:w-14 md:h-14" 
+                />
+              IDC SPA
+              </span>
             </h1>
             <p className="text-lg text-slate-300 mb-8" data-aos="fade-down" data-aos-delay="200">
               The Openid Connect client library you've been waiting for.
