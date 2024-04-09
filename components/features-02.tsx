@@ -27,7 +27,7 @@ export default function Features02() {
               Let's integrate Keycloak with your Vite project.
             </h2>
             <p className="text-lg text-slate-400">
-            oidc-spa is a generic OpenID Connect client NPM module for Single Page Applications. <br/>
+            Oidc-spa is a generic OpenID Connect client NPM module for Single Page Applications. <br/>
             It is a library that you use to redirect your users to an authentication server such as Keycloak when they click on your Sign-in button.
             </p>
           </div>
@@ -147,7 +147,7 @@ export default function Features02() {
                 <h4 className="font-medium text-slate-50">Accessible to all skill levels</h4>
               </div>
               <p className="text-sm text-slate-400">
-                In <a className={linkClassName} target="_blank" href="https://docs.oidc-spa.dev/" >the documentation</a>, 
+                In <a className={linkClassName} target="_blank" href="https://docs.Oidc-spa.dev/" >the documentation</a>, 
                 we do not assume that you are an expert in OIDC or Keycloak. 
                 We offer comprehensive guidance from start to finish, aiming to demystify the technical 
                 jargon.
@@ -162,16 +162,16 @@ export default function Features02() {
                 <h4 className="font-medium text-slate-50">React Integration</h4>
               </div>
               <p className="text-sm text-slate-400">
-                The oidc-spa is not limited to any particular framework.  
+                The Oidc-spa is not limited to any particular framework.  
                 However, we provide a React API and example projects demonstrating integration with 
                 <a
                   target="_blank"
-                  href="https://docs.oidc-spa.dev/example-setups/tanstack-router"
+                  href="https://docs.Oidc-spa.dev/example-setups/tanstack-router"
                   className={linkClassName}
                 >Tanstack</a> or 
                 <a
                   target="_blank"
-                  href="https://docs.oidc-spa.dev/example-setups/react-router"
+                  href="https://docs.Oidc-spa.dev/example-setups/react-router"
                   className={linkClassName}
                 >React Router</a>.
               </p>
@@ -224,7 +224,7 @@ export default function Features02() {
                 Effortless setup for 
                 <a
                   target="_blank"
-                  href="https://docs.oidc-spa.dev/documentation/auto-logout"
+                  href="https://docs.Oidc-spa.dev/documentation/auto-logout"
                   className={linkClassName}
                 >
                 automatic logout after a specified period of inactivity

@@ -38,7 +38,7 @@ export default function Features() {
                   </div>
                 </div>
                 <h3 className="h3 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-3">
-                  oidc-spa is an open source library for enabling user authentication in Single Page Applications.  
+                  Oidc-spa is an open source library for enabling user authentication in Single Page Applications.  
                 </h3>
                 <p className="text-lg text-slate-400 mb-8">
                   This library is ideal for those seeking to enable user login/registration in their web application. 

@@ -62,7 +62,7 @@ export default function Header() {
             </li>
             */}
                         <GithubBtn
-                href="https://github.com/keycloakify/oidc-spa"
+                href="https://github.com/keycloakify/Oidc-spa"
                 data-color-scheme={[
                     "no-preference: light;",
                     ...["light", "dark"].map(

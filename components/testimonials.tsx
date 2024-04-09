@@ -29,8 +29,8 @@ export default function Testimonials() {
         href="https://github.com/keycloakify/oidc-spa/issues/18#issuecomment-1982165945" 
         target="_blank"
       >
-Amazingly simplistic library that does what it says 🥇
-In combination with Tanstack Router is a very powerful tool. I have used a lot of different options before. Never go back
+Amazingly simplistic library that does what it says. 
+In combination with Tanstack Router is a very powerful tool. I have used a lot of different options before. Never going back.
       </a>,
       name: 'Yiannis Tsampoulatidis',
       role: 'Web Developer'
@@ -39,14 +39,11 @@ In combination with Tanstack Router is a very powerful tool. I have used a lot o
       img: TestimonialImg02,
       quote: <a
         target="_blank"
-        href="https://github.com/keycloakify/oidc-spa/issues/14#issuecomment-1923290994"
+        href="https://github.com/keycloakify/Oidc-spa/issues/14#issuecomment-1923290994"
       >
-      I discovered oidc-spa through the keycloakify-starter template and noticed that its provider 
-      is sourced from this library. My search for a new provider was due to the unreliability I 
-      encountered with react-oidc-context.  
+      My search for a new adapter was due to the unreliability I encountered with react-oidc-context.  
       The setup process with oidc-spa is not only simple and intuitive but also operates 
-      swiftly and reliably. Additionally, I experienced issues with the other library, such as 
-      entering a loop of approximately 1000 calls every 10 seconds when no realm was found.
+      swiftly and reliably. 
       </a>,
       name: 'Anton Hofmann',
       role: 'Full Stack Developer'

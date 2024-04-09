@@ -31,10 +31,10 @@ export default function Features03() {
               Sovrein Open source Identity Management
             </h2>
             <p className="text-lg text-slate-400"> 
-              OIDC-SPA is part of an initiative aimed at delivering a comprehensive solution for open source, self-hostable user identity management.
+              Oidc-spa is part of an initiative aimed at delivering a comprehensive solution for open source, self-hostable user identity management.
               The objective is to offer both user and development experiences comparable to those of platforms like Auth0, Okta, etc.<br/>
               While Keycloak offers extensive capabilities, its complexity can make it challenging to use and integrate. 
-              OIDC-SPA and <a href="https://keycloakify.dev" className={linkClassName}>Keycloakify</a> seek to simplify Keycloak, ensuring that opting for an open source solution does not compromise user experience 
+              Oidc-spa and <a href="https://keycloakify.dev" className={linkClassName}>Keycloakify</a> seek to simplify Keycloak, ensuring that opting for an open source solution does not compromise user experience 
               or developer productivity.
             </p>
           </div>

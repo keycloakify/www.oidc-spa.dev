@@ -39,7 +39,7 @@ export default function Hero() {
                   style={{ position: "relative", left: "2px" }} 
                   src={LogoImg} 
                   priority 
-                  alt="oidc-spa" 
+                  alt="Oidc-spa" 
                   className="w-12 h-12 md:w-14 md:h-14" 
                 />
               IDC SPA

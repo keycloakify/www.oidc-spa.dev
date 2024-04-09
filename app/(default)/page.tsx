@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'oidc-spa',
+  title: 'OIDC SPA',
   description: 'Openid connect client for Single Page Applications',
 }
 
