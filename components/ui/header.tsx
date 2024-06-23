@@ -35,6 +35,7 @@ export default function Header() {
                   Documentation
                 </a>
               </li>
+              {/*
               <li>
                 <a
                   className="font-medium text-sm text-slate-300 hover:text-white mx-4 lg:mx-5 transition duration-150 ease-in-out"
@@ -43,6 +44,7 @@ export default function Header() {
                   Pricing
                 </a>
               </li>
+              */}
             </ul>
 
           </nav>

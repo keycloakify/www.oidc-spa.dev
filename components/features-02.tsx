@@ -28,7 +28,8 @@ export default function Features02() {
             </h2>
             <p className="text-lg text-slate-400">
             Oidc-spa is a generic OpenID Connect client for Single Page Applications (e.g: Vite). <br/>
-            It is a library that you use to redirect your users to an authentication server like Keycloak when they click on your Sign-in button.
+            It is a library that you use to redirect your users to an authentication server like Keycloak when they click on your Sign-in button.<br/>
+            It's an alternative to the soon to be deprecated <a className={linkClassName} target="blank" href="https://www.npmjs.com/package/keycloak-js">keycloak-js</a> library.
             </p>
           </div>
 

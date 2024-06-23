@@ -17,7 +17,7 @@ export default function PricingSection() {
           {/* Content */}
           <div className="max-w-3xl mx-auto text-center pb-5 md:pb-8">
             <div>
-              <div className="inline-flex font-medium bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-purple-200 pb-3">Pricing</div>
+              <div className="inline-flex font-medium bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-purple-200 pb-3">We're not selling anything</div>
             </div>
             <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">Free and Open source software</h2>
             <p className="text-lg text-slate-400">
