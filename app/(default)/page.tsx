@@ -13,6 +13,7 @@ import Features04 from '@/components/features-04'
 import Pricing from './pricing-section'
 import Testimonials from '@/components/testimonials'
 import Cta from '@/components/cta'
+import Sponsors from '@/components/sponsors'
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
       <Testimonials />
       <TestimonialsCarousel />
       {/*<Cta />*/}
+      <Sponsors />
     </>
   )
 }

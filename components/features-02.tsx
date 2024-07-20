@@ -35,6 +35,10 @@ export default function Features02() {
 
 
 
+
+
+
+
           {/*
           <div className="relative pb-12 md:pb-20">
             <div className="absolute bottom-0 -mb-20 left-1/2 -translate-x-1/2 blur-2xl opacity-50 pointer-events-none" aria-hidden="true">
