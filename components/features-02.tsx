@@ -27,7 +27,7 @@ export default function Features02() {
               Let's integrate Keycloak with your web application.
             </h2>
             <p className="text-lg text-slate-400">
-            Oidc-spa is a generic OpenID Connect client for Single Page Applications (e.g: Vite). <br/>
+            Oidc-spa is a generic OpenID Connect client for Single Page Applications (e.g: Vite projects). <br/>
             It is a library that you use to redirect your users to an authentication server like Keycloak when they click on your Sign-in button.<br/>
             It's an alternative to the soon to be deprecated <a className={linkClassName} target="blank" href="https://www.npmjs.com/package/keycloak-js">keycloak-js</a> library.
             </p>
@@ -193,7 +193,7 @@ export default function Features02() {
                 <svg className="shrink-0 fill-slate-300" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
                   <path d="M11 0c1.3 0 2.6.5 3.5 1.5 1 .9 1.5 2.2 1.5 3.5 0 1.3-.5 2.6-1.4 3.5l-1.2 1.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.1-1.2c.6-.5.9-1.3.9-2.1s-.3-1.6-.9-2.2C12 1.7 10 1.7 8.9 2.8L7.7 4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.2-1.1C8.4.5 9.7 0 11 0ZM8.3 12c.4-.4 1-.5 1.4-.1.4.4.4 1 0 1.4l-1.2 1.2C7.6 15.5 6.3 16 5 16c-1.3 0-2.6-.5-3.5-1.5C.5 13.6 0 12.3 0 11c0-1.3.5-2.6 1.5-3.5l1.1-1.2c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.9 8.9c-.6.5-.9 1.3-.9 2.1s.3 1.6.9 2.2c1.1 1.1 3.1 1.1 4.2 0L8.3 12Zm1.1-6.8c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-4.2 4.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l4.2-4.2Z" />
                 </svg>
-                <h4 className="font-medium text-slate-50">Easy to set up</h4>
+                <h4 className="font-medium text-slate-50">Incredibly easy to set up</h4>
               </div>
               <p className="text-sm text-slate-400">
                 There is no need for creating special <code>/login</code> <code>/logout</code> routes. Just a <code>login()</code> function to call when you want to redirect your 
@@ -206,10 +206,11 @@ export default function Features02() {
                 <svg className="shrink-0 fill-slate-300" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
                   <path d="M14 0a2 2 0 0 1 2 2v4a1 1 0 0 1-2 0V2H2v12h4a1 1 0 0 1 0 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12Zm-1.957 10.629 3.664 3.664a1 1 0 0 1-1.414 1.414l-3.664-3.664-.644 2.578a.5.5 0 0 1-.476.379H9.5a.5.5 0 0 1-.48-.362l-2-7a.5.5 0 0 1 .618-.618l7 2a.5.5 0 0 1-.017.965l-2.578.644Z" />
                 </svg>
-                <h4 className="font-medium text-slate-50">Minimal API surface</h4>
+                <h4 className="font-medium text-slate-50">Helps you debug</h4>
               </div>
               <p className="text-sm text-slate-400">
-                The library indicates whether the user is authenticated. If they are, you obtain the user profile, a bearer token for calling your API, and a <code>logout()</code> function. That's all you need.
+                If somethings is wrong in your configuration, wether it's a CORS issue, a security header blocking the authentication,
+                or a bad Keycloak setting, oidc-spa will tell you precisely what's wrong and how to fix it.  
               </p>
             </div>
             {/* Feature */}

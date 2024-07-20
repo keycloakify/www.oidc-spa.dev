@@ -7,7 +7,8 @@ import Particles from './particles'
 
 import TestimonialImg01 from '@/public/images/Yiannis_Tsampoulatidis.png'
 import TestimonialImg02 from '@/public/images/Anton_Hofmann.jpeg'
-import TestimonialImg03 from '@/public/images/testimonial-03.jpg'
+import TestimonialImg03 from '@/public/images/Vasyl_Shchukin.jpeg'
+
 
 interface Item {
   img: StaticImageData
@@ -48,14 +49,19 @@ In combination with Tanstack Router is a very powerful tool. I have used a lot o
       name: 'Anton Hofmann',
       role: 'Full Stack Developer'
     },
-    /*
     {
       img: TestimonialImg03,
-      quote: "As a busy professional, I don't have a lot of time to devote to working out. But with this fitness program, I have seen amazing results in just a few short weeks. The workouts are efficient and effective.",
-      name: 'Jeff Kahl',
-      role: 'Appy Product Lead'
-    }
-    */
+      quote: <a
+        target="_blank"
+        href="https://discord.gg/mJdYJSdcm4"
+      >
+        I've been struggling with keycloak-js for days in my Solid JS app (gotta handle a plenty of edge cases, works awful with reactivity). 
+        But yesterday I tried the oidc-spa and it was like a charm! I literally spined up everything in 15 minutes 
+        (comparing to ~7 days with keycloak-js). Thank you for an amazing solution!
+      </a>,
+      name: 'Vasiliy Shchukin',
+      role: 'Software Engineer'
+    },
   ]
 
   const testimonials = useRef<HTMLDivElement>(null)
