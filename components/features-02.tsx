@@ -154,8 +154,7 @@ export default function Features02() {
               <p className="text-sm text-slate-400">
                 In <a className={linkClassName} target="_blank" href="https://docs.Oidc-spa.dev/" >the documentation</a>, 
                 we do not assume that you are an expert in OIDC or Keycloak. 
-                We offer comprehensive guidance from start to finish, aiming to demystify the technical 
-                jargon.
+                We offer comprehensive guidance from start to finish, you can join <a className={linkClassName} href="https://discord.gg/mJdYJSdcm4" target="_blank">our Discord server if you need help</a>.
               </p>
             </div>
             {/* Feature */}
