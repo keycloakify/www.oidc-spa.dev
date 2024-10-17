@@ -114,18 +114,18 @@ export default function Sponsors() {
                         <div className="mb-5">
                           <div>
                             <h3 className="inline-flex text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-1">
-                                Keycloak on Steroids as a Service
+                                Keycloak as a Service
                             </h3>
                             <p className="text-slate-400">
                               {" "}
-                              Keycloak community contributors of popular <a className={linkClassName} href="https://github.com/p2-inc#our-extensions-">extensions</a> providing free and dedicated <a className={linkClassName} href="https://phasetwo.io/hosting/">Keycloak hosting</a> and enterprise <a className={linkClassName} href="https://phasetwo.io/support/">Keycloak support</a> to businesses of all sizes.
+                              Keycloak community contributors of popular <a className={linkClassName} href="https://github.com/p2-inc#our-extensions-">extensions</a> providing free and dedicated <a className={linkClassName} href="https://phasetwo.io/hosting/?utm_source=keycloakify">Keycloak hosting</a> and enterprise <a className={linkClassName} href="https://phasetwo.io/support/?utm_source=keycloakify">Keycloak support</a> to businesses of all sizes.
                             </p>
                           </div>
                         </div>
                         <div>
                           <a
                             className="btn-sm text-slate-300 hover:text-white transition duration-150 ease-in-out group [background:linear-gradient(theme(colors.slate.900),_theme(colors.slate.900))_padding-box,_conic-gradient(theme(colors.slate.400),_theme(colors.slate.700)_25%,_theme(colors.slate.700)_75%,_theme(colors.slate.400)_100%)_border-box] relative before:absolute before:inset-0 before:bg-slate-800/30 before:rounded-full before:pointer-events-none"
-                            href="https://phasetwo.io/"
+                            href="https://phasetwo.io/?utm_source=keycloakify"
                           >
                             <span className="relative inline-flex items-center">
                               Learn more{" "}
@@ -142,7 +142,7 @@ export default function Sponsors() {
                           src={phaseTwoPngUrl}
                           width="504"
                           height="400"
-                          alt="Feature 01"
+                          alt="Phase Two"
                         />
                       </div>
                     </div>
@@ -262,7 +262,7 @@ export default function Sponsors() {
                           src={zone2PngUrl}
                           width="504"
                           height="400"
-                          alt="Feature 01"
+                          alt="Zone2"
                         />
                       </div>
                     </div>
