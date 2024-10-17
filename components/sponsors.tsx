@@ -140,7 +140,7 @@ export default function Sponsors() {
                         <Image
                           className="absolute bottom-0 left-1/2 -translate-x-1/2 mx-auto max-w-none md:relative md:left-0{md}transla{}-x-0"
                           src={phaseTwoPngUrl}
-                          width="504"
+                          width="370"
                           height="400"
                           alt="Phase Two"
                         />
@@ -260,7 +260,7 @@ export default function Sponsors() {
                         <Image
                           className="absolute bottom-0 left-1/2 -translate-x-1/2 mx-auto max-w-none md:relative md:left-0{md}transla{}-x-0"
                           src={zone2PngUrl}
-                          width="504"
+                          width="370"
                           height="400"
                           alt="Zone2"
                         />
