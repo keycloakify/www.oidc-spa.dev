@@ -82,7 +82,7 @@ export default function Features03() {
               <br />
               Setting up an open-source solution like Keycloak can be
               overwhelming, especially for small projects or early-stage
-              development.
+              development.&nbsp;
               <strong>Oidc-spa</strong> lets you start with a convenient
               provider like{" "}
               <a
