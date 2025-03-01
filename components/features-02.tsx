@@ -24,12 +24,10 @@ export default function Features02() {
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
             
             <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">
-              Let's integrate your web application with Keycloak, Ory Hydra or Dex.
+              Add authentication to your Vite project without getting locked into a specific provider.
             </h2>
             <p className="text-lg text-slate-400">
-            Oidc-spa is a generic OpenID Connect client for Single Page Applications (e.g: Vite projects). <br/>
-            It is a library that you use to redirect your users to an authentication server like Keycloak when they click on your Sign-in button.<br/>
-            It's an alternative to the soon to be deprecated <a className={linkClassName} target="blank" href="https://www.npmjs.com/package/keycloak-js">keycloak-js</a> library.
+            A fully-featured alternative to provider-specific SDKs like the soon-to-be-deprecated <strong>keycloak-js</strong>, <strong>auth0-spa-js</strong>, or <strong>MSAL.js</strong> (Microsoft Entra ID)—built for Vite, Create-React-App, and other SPAs. It just works.  
             </p>
           </div>
 
@@ -152,9 +150,9 @@ export default function Features02() {
                 <h4 className="font-medium text-slate-50">Accessible to all skill levels</h4>
               </div>
               <p className="text-sm text-slate-400">
-                In <a className={linkClassName} target="_blank" href="https://docs.Oidc-spa.dev/" >the documentation</a>, 
-                we do not assume that you are an expert in OIDC or Keycloak. 
-                We offer comprehensive guidance from start to finish, you can join <a className={linkClassName} href="https://discord.gg/mJdYJSdcm4" target="_blank">our Discord server if you need help</a>.
+                We offer <a className={linkClassName} target="_blank" href="https://docs.oidc-spa.dev/providers-configuration/provider-configuration">configuration guides</a> for the most popular OIDC providers.
+                <br/>
+                If you have any question ask us on <a className={linkClassName} href="https://discord.gg/mJdYJSdcm4" target="_blank">Discord</a> we are happy to help!
               </p>
             </div>
             {/* Feature */}
@@ -167,17 +165,25 @@ export default function Features02() {
               </div>
               <p className="text-sm text-slate-400">
                 Oidc-spa is not tied to any particular UI framework.  
-                However, we provide a React API and example projects demonstrating integration with 
+                However, we provide a React API and example projects for 
                 <a
                   target="_blank"
                   href="https://docs.Oidc-spa.dev/example-setups/tanstack-router"
                   className={linkClassName}
-                >Tanstack</a> or 
+                >Tanstack-Router</a>,
                 <a
                   target="_blank"
                   href="https://docs.Oidc-spa.dev/example-setups/react-router"
                   className={linkClassName}
-                >React Router</a>.
+                >React Router</a> 
+                &nbsp;
+                and integration with a
+                <a
+                  target="_blank"
+                  href="https://docs.oidc-spa.dev/example-setups/tanstack-router-+-node-rest-api"
+                  className={linkClassName}
+                >Node REST API</a>.
+
               </p>
             </div>
             {/* Feature */}
@@ -186,9 +192,11 @@ export default function Features02() {
                 <svg className="shrink-0 fill-slate-300" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
                   <path d="M14.3.3c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-8 8c-.2.2-.4.3-.7.3-.3 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l8-8ZM15 7c.6 0 1 .4 1 1 0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8c.6 0 1 .4 1 1s-.4 1-1 1C4.7 2 2 4.7 2 8s2.7 6 6 6 6-2.7 6-6c0-.6.4-1 1-1Z" />
                 </svg>
-                <h4 className="font-medium text-slate-50">TypeScript</h4>
+                <h4 className="font-medium text-slate-50">Yes, it can do it!</h4>
               </div>
-              <p className="text-sm text-slate-400">Expect best in class type safety: Enhanced API response types based on usage context. Optional Zod integration for validating the user profile from the JWT.</p>
+              <p className="text-sm text-slate-400">
+                Anything you can do with a provider-specific SDK like keycloak-js, you can do with oidc-spa.<br/>Being generic doesn’t mean it has fewer features.
+              </p>
             </div>
             {/* Feature */}
             <div>
