@@ -91,7 +91,7 @@ export default function Features03() {
                 className={linkClassName}
               >
                 Auth0
-              </a>
+              </a>&nbsp;
               while keeping the flexibility to switch to a self-hosted
               open-source solution later—without reworking your entire codebase.
             </p>
