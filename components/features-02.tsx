@@ -24,7 +24,7 @@ export default function Features02() {
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
             
             <h2 className="h2 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 pb-4">
-              Add authentication to your Vite project without getting locked into a specific provider.
+              Add authentication to your SPA without getting locked into a specific provider.
             </h2>
             <p className="text-lg text-slate-400">
             A fully-featured alternative to provider-specific SDKs like the soon-to-be-deprecated <strong>keycloak-js</strong>, <strong>auth0-spa-js</strong>, or <strong>MSAL.js</strong> (Microsoft Entra ID)—built for Vite, Create-React-App, and other SPAs. It just works.  
