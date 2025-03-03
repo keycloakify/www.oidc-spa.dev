@@ -27,7 +27,10 @@ export default function Features02() {
               Add authentication to your SPA without getting locked into a specific provider.
             </h2>
             <p className="text-lg text-slate-400">
-            A fully-featured alternative to provider-specific SDKs like the soon-to-be-deprecated <strong>keycloak-js</strong>, <strong>auth0-spa-js</strong>, or <strong>MSAL.js</strong> (Microsoft Entra ID)—built for Vite, Create-React-App, and other SPAs. It just works.  
+            A fully-featured alternative to provider-specific SDKs like <br/>
+            <strong>keycloak-js</strong> (soon deprecated), <strong>auth0-spa-js</strong>, or <strong>MSAL.js</strong> (Entra ID)<br/>
+            Built for Vite, Create-React-App, and other SPAs.<br/>
+            It just works.  
             </p>
           </div>
 
