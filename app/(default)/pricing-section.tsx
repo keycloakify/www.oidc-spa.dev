@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Illustration from '@/public/images/page-illustration.svg'
-import Pricing from '@/components/pricing'
+//import Pricing from '@/components/pricing'
 import { linkClassName } from "@/components/utils/linkClassName";
 
 export default function PricingSection() {

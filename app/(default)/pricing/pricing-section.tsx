@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Particles from '@/components/particles'
 import Illustration from '@/public/images/page-illustration.svg'
-import Pricing from '@/components/pricing'
+//import Pricing from '@/components/pricing'
 
 export default function PricingSection() {
   return (
@@ -32,7 +32,7 @@ export default function PricingSection() {
               <p className="text-lg text-slate-400">Cut down overhead costs and ditch clunky software. Get a flexible, purpose-built tool to simplify your security with authentication services.</p>
             </div>
           </div>
-          <Pricing />
+          {/*<Pricing />*/}
         </div>
       </div>
 
