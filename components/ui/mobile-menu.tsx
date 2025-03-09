@@ -33,6 +33,7 @@ export default function MobileMenu() {
   return (
     <div className="md:hidden flex items-center ml-4">
       {/* Hamburger button */}
+      {/*
       <button
         ref={trigger}
         className={`hamburger ${mobileNavOpen && 'active'}`}
@@ -47,8 +48,10 @@ export default function MobileMenu() {
           <rect y="16" width="20" height="2" rx="1" />
         </svg>
       </button>
+      */}
 
       {/*Mobile navigation */}
+      {/*
       <nav
         id="mobile-nav"
         ref={mobileNav}
@@ -73,6 +76,7 @@ export default function MobileMenu() {
           </li>
         </ul>
       </nav>
+      */}
     </div>
   )
 }
