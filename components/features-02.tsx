@@ -210,8 +210,15 @@ export default function Features02() {
                 <h4 className="font-medium text-slate-50">Incredibly easy to set up</h4>
               </div>
               <p className="text-sm text-slate-400">
-                There is no need for creating special <code>/login</code> <code>/logout</code> routes. Just a <code>login()</code> function to call when you want to redirect your 
-                user to the login/registration pages.  
+                    Your backend is not involved in the token exchange,
+                  <a
+                    target="_blank"
+                    href="https://docs.Oidc-spa.dev/documentation/auto-logout"
+                    className={linkClassName}
+                  >
+                  the frontend handles everything.  
+                  </a>&nbsp;
+                  No database is needed, as the OIDC provider itself acts as the session store.  
               </p>
             </div>
             {/* Feature */}
