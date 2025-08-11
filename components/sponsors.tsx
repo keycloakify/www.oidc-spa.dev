@@ -182,6 +182,7 @@ export default function Sponsors() {
                 />
               </svg>
             </div>
+            {/*
             <Highlighter className="grid md:grid-cols-12 gap-6 group">
               <div className="md:col-span-12" data-aos="fade-down">
                 <HighlighterItem>
@@ -270,6 +271,7 @@ export default function Sponsors() {
                 </HighlighterItem>
               </div>
             </Highlighter>
+            */}
           </div>
 
         </div>
