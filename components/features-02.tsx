@@ -28,7 +28,7 @@ export default function Features02() {
             </h2>
             <p className="text-lg text-slate-400">
             A fully-featured alternative to provider-specific SDKs like <br/>
-            <strong>keycloak-js</strong> (soon deprecated), <strong>auth0-spa-js</strong>, or <strong>MSAL.js</strong> (Entra ID)<br/>
+            <strong>keycloak-js</strong>, <strong>auth0-spa-js</strong>, or <strong>MSAL.js</strong> (Entra ID)<br/>
             Built for Vite, Create-React-App, and other SPAs.<br/>
             It just works.  
             </p>
