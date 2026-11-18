@@ -156,3 +156,12 @@
     opacity: 0.5;
   }
 }
+
+/* Scrolls when it has to (by touch, trackpad or wheel), without drawing a scrollbar. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

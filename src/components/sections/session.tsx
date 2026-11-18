@@ -1,7 +1,7 @@
+import { AutoLogoutDemo } from "#components/auto-logout-demo";
 import { ExternalLink } from "#components/external-link";
 import { Reveal } from "#components/reveal";
 import { SectionHeading } from "#components/section-heading";
-import { YoutubeVideo } from "#components/youtube-video";
 import { docs } from "#constants";
 import { sectionClassName } from "#lib/section";
 import { CheckIcon } from "lucide-react";
@@ -38,13 +38,13 @@ export function Session() {
             ))}
           </ul>
           <p className="text-sm text-pretty text-muted-foreground">
-            When a session is about to expire, give users a chance to keep working. Watch it in
-            action, or read about{" "}
+            When a session is about to expire, give users a chance to keep working. Try it on the
+            window, or read about{" "}
             <ExternalLink href={docs("/features/auto-logout")}>auto logout</ExternalLink>.
           </p>
         </Reveal>
         <Reveal>
-          <YoutubeVideo id="GeZaZIr-d68" title="oidc-spa: Auto logout countdown" />
+          <AutoLogoutDemo />
         </Reveal>
       </div>
     </section>

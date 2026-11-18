@@ -1,11 +1,11 @@
-import logoSvgUrl from "#assets/img/logo.svg";
 import { ArchitectureDiagram } from "#components/architecture-diagram";
 import { GithubIcon } from "#components/brand-icons";
 import { ProviderLogo } from "#components/provider-logos";
 import { getProviderGuideUrl, PROVIDERS } from "#lib/providers";
 import { Button } from "#components/ui/button";
-import { DOCUMENTATION_URL, EXAMPLES_URL, GITHUB_REPO_URL } from "#constants";
+import { DOCUMENTATION_URL, GITHUB_REPO_URL } from "#constants";
 import { revealVariants, staggerVariants } from "#lib/motion";
+import { GETTING_STARTED_ID } from "#lib/section";
 import { BookOpenIcon, PlusIcon } from "lucide-react";
 import * as m from "motion/react-m";
 
@@ -23,13 +23,6 @@ export function Hero() {
         className="flex flex-col gap-14 px-5 pt-16 pb-14 sm:px-10 sm:pt-24 sm:pb-20 lg:px-16"
       >
         <div className="mx-auto flex max-w-4xl flex-col items-center gap-5 text-center">
-          <m.span
-            variants={revealVariants}
-            className="flex items-center gap-2 rounded-full border bg-card py-1 ps-1.5 pe-3 text-sm font-medium"
-          >
-            <img src={logoSvgUrl} alt="" className="size-5" />
-            oidc-spa
-          </m.span>
           <m.h1
             variants={revealVariants}
             className="text-4xl font-medium tracking-tighter text-balance sm:text-6xl"
@@ -41,8 +34,8 @@ export function Hero() {
             variants={revealVariants}
             className="max-w-2xl text-pretty text-muted-foreground sm:text-lg"
           >
-            A single MIT library to connect your frontend to your identity provider, deliver a
-            smooth sign-in experience, and authenticate requests to your APIs.
+            A single MIT library to connect your frontend to your IAM platform, deliver a smooth
+            sign-in experience, and authenticate requests to your APIs.
           </m.p>
           <m.div
             variants={revealVariants}
@@ -51,20 +44,20 @@ export function Hero() {
             <Button
               size="lg"
               nativeButton={false}
-              render={<a href={DOCUMENTATION_URL} target="_blank" rel="noopener noreferrer" />}
+              render={<a href={`#${GETTING_STARTED_ID}`} />}
               className="h-10 px-4"
             >
-              Get started
+              Getting started
             </Button>
             <Button
               variant="outline"
               size="lg"
               nativeButton={false}
-              render={<a href={EXAMPLES_URL} target="_blank" rel="noopener noreferrer" />}
+              render={<a href={DOCUMENTATION_URL} target="_blank" rel="noopener noreferrer" />}
               className="h-10 px-4"
             >
               <BookOpenIcon data-icon="inline-start" />
-              Explore the examples
+              Docs
             </Button>
             <Button
               variant="outline"
@@ -79,7 +72,7 @@ export function Hero() {
           </m.div>
           <m.div variants={revealVariants} className="mt-6 flex flex-col items-center gap-3">
             <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-              Works with any OpenID Connect provider
+              Works with most OIDC-compatible IAM platforms
             </span>
             <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
               {PROVIDERS.map((provider) => (
@@ -93,7 +86,8 @@ export function Hero() {
               <li>
                 <ProviderLink href={getProviderGuideUrl("Other")}>
                   <PlusIcon aria-hidden="true" className="size-4" />
-                  Any OIDC provider
+                  {/* The guide lists what "compatible" means: public clients, PKCE, prompt=none, CORS. */}
+                  Other compatible providers
                 </ProviderLink>
               </li>
             </ul>

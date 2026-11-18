@@ -8,19 +8,19 @@ import { CookieIcon, HouseIcon, StethoscopeIcon, type LucideIcon } from "lucide-
 // Rendered by oidc-spa (src/core/diagnostic.ts) for a Keycloak client missing its redirect URI.
 const DIAGNOSTIC_MESSAGE = `The silent sign-in process timed out.
 Based on the diagnostic performed by oidc-spa the more likely causes are:
-- Either the client ID "myclient" does not exist, or
+- Either the client ID "skincare-dashboard" does not exist, or
 - You forgot to add the OIDC callback URL to the list of Valid Redirect URIs.
-Client ID: "myclient"
-Callback URL to add to the list of Valid Redirect URIs: "https://my-app.example.com/"
+Client ID: "skincare-dashboard"
+Callback URL to add to the list of Valid Redirect URIs: "https://dashboard.skincare.com/"
 
 It seems you are using Keycloak. Follow these steps to resolve the issue:
 
-1. Go to the Keycloak admin console: https://auth.example.com/admin/master/console
+1. Go to the Keycloak admin console: https://auth.skincare.com/admin/master/console
 2. Log in as an admin user.
-3. In the top left corner select the realm "myrealm".
+3. In the top left corner select the realm "skincare".
 4. In the left menu, click on "Clients".
-5. Locate the client "myclient" in the list and click on it.
-6. Find "Valid Redirect URIs" and add "https://my-app.example.com/" to the list.
+5. Locate the client "skincare-dashboard" in the list and click on it.
+6. Find "Valid Redirect URIs" and add "https://dashboard.skincare.com/" to the list.
 7. Save the changes.`;
 
 const points: { Icon: LucideIcon; title: string; description: React.ReactNode }[] = [

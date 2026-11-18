@@ -16,29 +16,31 @@ type Mode = "real" | "mock";
 const chunks: { mode: Mode | "none"; code: string }[] = [
   {
     mode: "none",
-    code: `import { oidcSpa } from "oidc-spa/react-tanstack-start";
-import { z } from "zod";
+    code: `import { oidcSpa } from "oidc-spa/tanstack-start-react";
 
-type User_client = { displayName: string };
-type User_server = { isAdmin: boolean };
-
-const AccessTokenClaims = z.object({ roles: z.array(z.string()) });
+type User_client = { displayName: string; avatar: string };
+type User_server = { id: string; isAdmin: boolean };
 
 export const { useOidc, getOidc } = oidcSpa
     .withClientUser<User_client>(({ isMock, idTokenClaims }) => {`,
   },
-  { mode: "mock", code: `        if (isMock) return { displayName: "John Doe" };` },
-  { mode: "real", code: `        return { displayName: idTokenClaims.name };` },
+  {
+    mode: "mock",
+    code: `        if (isMock) return { displayName: "John Doe", avatar: "/default-avatar.svg" };`,
+  },
+  {
+    mode: "real",
+    code: `        return { displayName: idTokenClaims.name, avatar: idTokenClaims.picture };`,
+  },
   {
     mode: "none",
     code: `    })
     .withServerUser<User_server>(({ isMock, accessTokenClaims }) => {`,
   },
-  { mode: "mock", code: `        if (isMock) return { isAdmin: true };` },
+  { mode: "mock", code: `        if (isMock) return { id: "1234", isAdmin: true };` },
   {
     mode: "real",
-    code: `        const { roles } = AccessTokenClaims.parse(accessTokenClaims);
-        return { isAdmin: roles.includes("admin") };`,
+    code: `        return { id: accessTokenClaims.sub, isAdmin: accessTokenClaims.roles.includes("admin") };`,
   },
   {
     mode: "none",
@@ -55,11 +57,11 @@ export const { useOidc, getOidc } = oidcSpa
     mode: "real",
     code: `        return {
             mode: "real",
-            issuerUri: process.env["ISSUER_URI"],
-            client: { clientId: process.env["CLIENT_ID"] },
+            issuerUri: "https://auth.mycompany.com/realms/myrealm",
+            client: { clientId: "myclient" },
             server: {
                 accessTokenValidationMethod: "offline JWT validation",
-                expectedAccessTokenAudience: process.env["EXPECTED_ACCESS_TOKEN_AUDIENCE"]
+                expectedAccessTokenAudience: "myclient-api"
             }
         };`,
   },

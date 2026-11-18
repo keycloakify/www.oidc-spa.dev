@@ -1,4 +1,4 @@
-import { CodeLines } from "#components/code-block";
+import { CodeBlock, CodeLines } from "#components/code-block";
 import { CopyButton } from "#components/copy-button";
 import { ExternalLink } from "#components/external-link";
 import { Reveal } from "#components/reveal";
@@ -8,71 +8,145 @@ import { docs } from "#constants";
 import { sectionClassName } from "#lib/section";
 import { useState } from "react";
 
-type Example = {
-  value: string;
-  label: string;
-  /** `src/oidc.user.ts`, adapted from the docs and trimmed to `createUser`. */
-  code: string;
-};
+const USER_TYPE = `// App-specific user model exposed by \`useUser()\`.
+// Shape it around the information the UI needs to render.
+export type User = {
+    displayName: string;
+    avatarImgUrl: string;
+    canSeeAdminNavigation: boolean;
+};`;
+
+const RUNTIME_CONFIGS = `    .withRuntimeConfigs({
+        mode: "real",
+        issuerUri: "https://auth.mycompany.com/realms/myrealm",
+        clientId: "myclient"
+    })
+    .createUtils();`;
+
+type Example = { value: string; label: string; code: string };
 
 // From https://docs.oidc-spa.dev/docs/v11/features/user
 const examples: Example[] = [
   {
     value: "claims",
     label: "Token claims",
-    code: `import type { CreateUser } from "oidc-spa/core";
-import { z } from "zod";
+    code: `import { oidcSpa } from "oidc-spa/client";
+import { decodeJwt } from "oidc-spa/decode-jwt";
 
-export type User = { displayName: string; avatarUrl?: string };
+${USER_TYPE}
 
-const DecodedIdToken = z.object({
-    name: z.string(),
-    picture: z.string().optional()
-});
+export const { getOidc } = oidcSpa
+    .withUser<User>(({ idTokenClaims, accessToken }) => {
 
-export const createUser: CreateUser<User> = ({ decodedIdToken }) => {
-    const { name, picture } = DecodedIdToken.parse(decodedIdToken);
-    return { displayName: name, avatarUrl: picture };
-};`,
+        const accessTokenClaims = decodeJwt(accessToken);
+
+        return {
+            displayName: idTokenClaims.name,
+            avatarImgUrl: idTokenClaims.picture,
+            canSeeAdminNavigation: accessTokenClaims.roles.includes("admin")
+        };
+
+    })
+${RUNTIME_CONFIGS}`,
   },
   {
     value: "userinfo",
     label: "UserInfo",
-    code: `import type { CreateUser } from "oidc-spa/core";
-import { z } from "zod";
+    code: `import { oidcSpa } from "oidc-spa/client";
 
-export type User = { id: string; email: string | undefined };
+${USER_TYPE}
 
-const UserInfo = z.object({
-    sub: z.string(),
-    email: z.string().email().optional()
-});
+export const { getOidc } = oidcSpa
+    .withUser<User>(async ({ fetchUserInfo }) => {
 
-export const createUser: CreateUser<User> = async ({ fetchUserInfo }) => {
-    const { sub, email } = UserInfo.parse(await fetchUserInfo());
-    return { id: sub, email };
-};`,
+        const userInfo = await fetchUserInfo();
+
+        return {
+            displayName: userInfo.name,
+            avatarImgUrl: userInfo.picture,
+            canSeeAdminNavigation: userInfo.roles.includes("admin")
+        };
+
+    })
+${RUNTIME_CONFIGS}`,
   },
   {
     value: "api",
     label: "Your API",
-    code: `import type { CreateUser } from "oidc-spa/core";
-import { z } from "zod";
+    code: `import { oidcSpa } from "oidc-spa/client";
 
-const UserFromApi = z.object({
-    displayName: z.string(),
-    canManageBilling: z.boolean()
-});
+${USER_TYPE}
 
-export type User = z.infer<typeof UserFromApi>;
+export const { getOidc } = oidcSpa
+    .withUser<User>(() => fetchWithAuth("/api/user").then(r => r.json()))
+${RUNTIME_CONFIGS}
 
-export const createUser: CreateUser<User> = async () => {
-    const { fetchWithAuth } = await import("./oidc");
-    const response = await fetchWithAuth("/api/user");
-    return UserFromApi.parse(await response.json());
+// Attaches the access token when logged in; otherwise behaves like fetch.
+export const fetchWithAuth: typeof fetch = async (input, init) => {
+    const request = new Request(input, init);
+    const oidc = await getOidc();
+
+    if (oidc.isUserLoggedIn) {
+        request.headers.set("Authorization", \`Bearer \${await oidc.getAccessToken()}\`);
+    }
+
+    return fetch(request);
 };`,
   },
+  {
+    value: "keycloak",
+    label: "Keycloak User Profile",
+    code: `import { oidcSpa } from "oidc-spa/client";
+import { createKeycloakUtils } from "oidc-spa/keycloak-utils";
+
+${USER_TYPE}
+
+export const { getOidc } = oidcSpa
+    .withUser<User>(async ({ issuerUri, accessToken }) => {
+
+        const keycloakUtils = createKeycloakUtils({ issuerUri });
+
+        const kcUserProfile = await keycloakUtils.fetchUserProfile({ accessToken });
+
+        return {
+            displayName: \`\${kcUserProfile.firstName} \${kcUserProfile.lastName}\`,
+            avatarImgUrl: kcUserProfile.attributes.picture,
+            canSeeAdminNavigation: kcUserProfile.roles.includes("admin")
+        };
+
+    })
+${RUNTIME_CONFIGS}`,
+  },
 ];
+
+const USAGE_CODE = `import { getOidc, useOidc } from "~/oidc";
+
+async function greetings() {
+    const oidc = await getOidc();
+
+    if (!oidc.isUserLoggedIn) {
+        return;
+    }
+
+    const user = await oidc.getUser();
+
+    alert(\`Hello \${user.displayName}\`);
+}
+
+function Greeting() {
+    const { isUserLoggedIn, user } = useOidc();
+
+    if (!isUserLoggedIn) {
+        return null;
+    }
+
+    return (
+        <div>
+            <img src={user.avatarImgUrl} />
+            <h1>Hello {user.displayName}</h1>
+        </div>
+    );
+}`;
 
 // Every tab gets the height of the longest snippet, so switching doesn't move the page.
 const maxLineCount = Math.max(...examples.map(({ code }) => code.split("\n").length));
@@ -83,40 +157,32 @@ export function UserObject() {
 
   return (
     <section className={sectionClassName}>
-      <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-        <Reveal className="flex flex-col gap-6">
-          <SectionHeading
-            align="start"
-            eyebrow="Typed users"
-            title={
-              <>
-                <span className="whitespace-nowrap">Your user object,</span> your way.
-              </>
-            }
-          >
-            <p>
-              You decide what a user looks like in your application. Give oidc-spa one function that
-              creates that representation, and use the result throughout your app with full
-              TypeScript support.
-            </p>
-            <p>
-              Build it from ID token claims, access token claims, the userinfo endpoint, your own
-              API, or a combination of those sources.
-            </p>
-          </SectionHeading>
-          <ExternalLink href={docs("/features/user")} className="self-start">
-            Learn more about the user object
-          </ExternalLink>
-        </Reveal>
+      <Reveal className="flex flex-col items-center gap-6">
+        <SectionHeading eyebrow="Typed users" title="Your user object, your way.">
+          <p>
+            You decide what a user looks like in your application. Give oidc-spa one function that
+            creates that representation, and use the result throughout your app with full TypeScript
+            support. Build it from ID token claims, access token claims, the userinfo endpoint, your
+            own API, or a combination of those sources.
+          </p>
+        </SectionHeading>
+        <ExternalLink href={docs("/features/user")}>Learn more about the user object</ExternalLink>
+      </Reveal>
 
-        <Reveal className="min-w-0">
+      <div className="mx-auto mt-12 grid max-w-6xl gap-10 sm:mt-16 lg:grid-cols-2 lg:gap-6">
+        <Reveal className="flex min-w-0 flex-col gap-3">
+          <StepLabel number={1}>Create it, from the source of your choice</StepLabel>
           <Tabs
             value={selectedValue}
             onValueChange={(value) => setSelectedValue(String(value))}
-            className="gap-0 overflow-hidden rounded-xl border bg-card text-card-foreground"
+            className="flex-1 gap-0 overflow-hidden rounded-xl border bg-card text-card-foreground"
           >
-            <div className="flex h-11 items-center justify-between gap-3 border-b bg-muted/40 ps-2 pe-1.5">
-              <TabsList variant="line" aria-label="Where the user comes from">
+            <div className="flex min-h-11 items-center justify-between gap-3 border-b bg-muted/40 ps-2 pe-1.5">
+              <TabsList
+                variant="line"
+                aria-label="Where the user comes from"
+                className="no-scrollbar h-11 max-w-full overflow-x-auto overflow-y-hidden"
+              >
                 {examples.map(({ value, label }) => (
                   <TabsTrigger key={value} value={value} className="px-2">
                     {label}
@@ -124,8 +190,8 @@ export function UserObject() {
                 ))}
               </TabsList>
               <span className="flex items-center gap-2">
-                <span className="font-mono text-xs text-muted-foreground max-sm:hidden">
-                  src/oidc.user.ts
+                <span className="font-mono text-xs text-muted-foreground max-xl:hidden">
+                  src/oidc.ts
                 </span>
                 <CopyButton text={selectedExample.code} />
               </span>
@@ -141,7 +207,25 @@ export function UserObject() {
             ))}
           </Tabs>
         </Reveal>
+
+        <Reveal className="flex min-w-0 flex-col gap-3">
+          <StepLabel number={2}>Use it anywhere, fully typed</StepLabel>
+          <CodeBlock code={USAGE_CODE} fileName="src/components/Greeting.tsx" className="flex-1" />
+        </Reveal>
       </div>
     </section>
+  );
+}
+
+function StepLabel(props: { number: number; children: React.ReactNode }) {
+  const { number, children } = props;
+
+  return (
+    <span className="flex items-center gap-2.5 text-sm font-medium">
+      <span className="flex size-6 items-center justify-center rounded-full border bg-muted/50 font-mono text-xs text-muted-foreground">
+        {number}
+      </span>
+      {children}
+    </span>
   );
 }

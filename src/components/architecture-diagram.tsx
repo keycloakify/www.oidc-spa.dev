@@ -1,13 +1,10 @@
 import { ProviderLogo } from "#components/provider-logos";
+import { PROVIDERS, type Provider } from "#lib/providers";
 import { cn } from "#lib/utils";
 import { CheckIcon, GlobeIcon, PauseIcon, PlayIcon, ServerIcon } from "lucide-react";
 import { AnimatePresence, useInView, useReducedMotion, type Variants } from "motion/react";
 import * as m from "motion/react-m";
 import { useEffect, useRef, useState } from "react";
-
-const PROVIDERS = ["Keycloak", "Auth0", "Microsoft Entra ID"] as const;
-
-type Provider = (typeof PROVIDERS)[number];
 
 type Travel = {
   connector: "left" | "right";
@@ -48,15 +45,22 @@ const STEPS: { label: string; focus: Focus; durationMs: number; travel: Travel |
     travel: { connector: "left", isReversed: true, chips: ["code + PKCE", "tokens"] },
   },
   {
-    label: "The app calls the API with the access token",
+    label: "The app calls the API with the access token in the Authorization request header",
     focus: "api",
     durationMs: 2600,
-    travel: { connector: "right", isReversed: false, chips: ["Bearer eyJ…"] },
+    travel: { connector: "right", isReversed: false, chips: ["access token"] },
   },
   {
-    label: "The API validates it and returns data",
+    label:
+      "The API uses oidc-spa/server to validate the access token, either offline by checking its signature or through the introspection endpoint. It also validates the DPoP proof when present",
+    focus: "api",
+    durationMs: 4200,
+    travel: undefined,
+  },
+  {
+    label: "The API processes the request and returns the data",
     focus: "browser",
-    durationMs: 3000,
+    durationMs: 2800,
     travel: { connector: "right", isReversed: true, chips: ["200 · 3 todos"] },
   },
 ];
@@ -79,9 +83,10 @@ const PROVIDER_LOG: LogEntry[] = [
 
 const API_LOG: LogEntry[] = [
   { step: 4, text: "GET /api/todos", delay: TRAVEL_S },
-  { step: 4, text: "Verifying signature…", delay: TRAVEL_S + 0.3 },
-  { step: 5, text: "Token valid", isSuccess: true },
-  { step: 5, text: "200 · 3 todos", delay: 0.15 },
+  { step: 5, text: "Validating access token…" },
+  { step: 5, text: "Signature valid", delay: 1.2, isSuccess: true },
+  { step: 5, text: "DPoP proof valid", delay: 2, isSuccess: true },
+  { step: 6, text: "200 · 3 todos" },
 ];
 
 export function ArchitectureDiagram(props: { className?: string }) {
@@ -120,9 +125,9 @@ export function ArchitectureDiagram(props: { className?: string }) {
     <figure ref={ref} className={cn("flex flex-col gap-8", className)}>
       <div className="grid items-center lg:grid-cols-[1fr_minmax(7rem,9rem)_1.3fr_minmax(7rem,9rem)_1fr]">
         <Node
-          icon={<ProviderLogo key={provider} provider={provider} />}
-          title="Your identity provider"
-          subtitle={provider}
+          icon={<ProviderLogos activeProvider={provider} />}
+          title="Your IAM platform"
+          subtitle="Keycloak, Auth0, Microsoft Entra ID…"
           isActive={step.focus === "provider"}
         >
           <ServerLog
@@ -139,11 +144,15 @@ export function ArchitectureDiagram(props: { className?: string }) {
         />
 
         <Node
-          icon={<GlobeIcon aria-hidden="true" className="size-4" />}
+          icon={
+            <IconBox>
+              <GlobeIcon aria-hidden="true" className="size-4" />
+            </IconBox>
+          }
           title="Your app in the browser"
           subtitle={
             <>
-              One tab, using <code className="font-mono">oidc-spa</code>
+              One tab, using <code className="font-mono">oidc-spa/client</code>
             </>
           }
           isActive={step.focus === "browser"}
@@ -157,7 +166,11 @@ export function ArchitectureDiagram(props: { className?: string }) {
         />
 
         <Node
-          icon={<ServerIcon aria-hidden="true" className="size-4" />}
+          icon={
+            <IconBox>
+              <ServerIcon aria-hidden="true" className="size-4" />
+            </IconBox>
+          }
           title="Your API"
           subtitle={
             <>
@@ -175,7 +188,7 @@ export function ArchitectureDiagram(props: { className?: string }) {
         </Node>
       </div>
 
-      <figcaption className="mx-auto flex w-full max-w-xl flex-col gap-1">
+      <figcaption className="mx-auto flex w-full max-w-2xl flex-col gap-1">
         <ol className="flex gap-1.5">
           {STEPS.map(({ label, durationMs }, index) => (
             <li key={label} className="flex-1">
@@ -209,15 +222,20 @@ export function ArchitectureDiagram(props: { className?: string }) {
             </li>
           ))}
         </ol>
-        <div className="flex items-center justify-between gap-4 text-sm">
-          <Swap id={String(stepIndex)} className="justify-start text-start">
-            <span>
-              <span className="me-2 font-mono text-xs text-muted-foreground tabular-nums">
-                {stepIndex + 1}/{STEPS.length}
+        <div className="flex items-start justify-between gap-4 text-sm">
+          <span className="grid min-w-0 flex-1">
+            {/* Invisible copies of every label keep the caption at the height of the longest one. */}
+            {STEPS.map(({ label }, index) => (
+              <span key={label} aria-hidden="true" className="invisible col-start-1 row-start-1">
+                <StepLabel index={index} label={label} />
               </span>
-              {step.label}
+            ))}
+            <span className="col-start-1 row-start-1 flex">
+              <Swap id={String(stepIndex)} className="items-start justify-start text-start">
+                <StepLabel index={stepIndex} label={step.label} />
+              </Swap>
             </span>
-          </Swap>
+          </span>
           {/* Hidden with CSS rather than the hook so the prerendered markup matches on hydration. */}
           <button
             type="button"
@@ -235,6 +253,19 @@ export function ArchitectureDiagram(props: { className?: string }) {
         </div>
       </figcaption>
     </figure>
+  );
+}
+
+function StepLabel(props: { index: number; label: string }) {
+  const { index, label } = props;
+
+  return (
+    <span className="text-pretty">
+      <span className="me-2 font-mono text-xs text-muted-foreground tabular-nums">
+        {index + 1}/{STEPS.length}
+      </span>
+      {label}
+    </span>
   );
 }
 
@@ -361,14 +392,15 @@ function AppPage(props: { stepIndex: number }) {
   // Signed in once the tokens come back from the provider.
   const signedInDelay = stepIndex === 3 ? 2 * TRAVEL_S : 0;
 
+  // During step 2 the tab shows the provider's page instead.
   const screen =
-    stepIndex === 0
+    stepIndex <= 1
       ? "signed out"
       : stepIndex === 2
         ? "signing in"
         : stepIndex === 3
           ? "signed in"
-          : stepIndex === 4
+          : stepIndex <= 5
             ? "loading"
             : "todos";
 
@@ -557,7 +589,7 @@ function ServerLog(props: {
   const visibleEntries = entries.filter((entry) => entry.step <= stepIndex);
 
   return (
-    <div className="mx-auto flex min-h-32 w-full max-w-52 flex-col gap-1.5 overflow-hidden rounded-lg border bg-background p-3 font-mono text-[0.6875rem] shadow-xs">
+    <div className="mx-auto flex min-h-36 w-full max-w-52 flex-col gap-1.5 overflow-hidden rounded-lg border bg-background p-3 font-mono text-[0.6875rem] shadow-xs">
       <span className="text-muted-foreground">{host}</span>
       <ul className="flex flex-col gap-0.5">
         <AnimatePresence>
@@ -619,16 +651,44 @@ function Node(props: {
       )}
     >
       <div className="flex items-start gap-3">
-        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-brand">
-          {icon}
-        </span>
+        {icon}
         <div className="flex min-w-0 flex-col">
           <span className="text-sm font-medium">{title}</span>
-          <span className="truncate text-xs text-muted-foreground">{subtitle}</span>
+          <span className="text-xs text-pretty text-muted-foreground">{subtitle}</span>
         </div>
       </div>
       {children}
     </div>
+  );
+}
+
+function IconBox(props: { children: React.ReactNode }) {
+  const { children } = props;
+
+  return (
+    <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-brand">
+      {children}
+    </span>
+  );
+}
+
+/** Every supported platform side by side, the one used in the current run brought forward. */
+function ProviderLogos(props: { activeProvider: Provider }) {
+  const { activeProvider } = props;
+
+  return (
+    <span className="flex h-8 shrink-0 items-center gap-1.5 rounded-lg bg-primary/10 px-2">
+      {PROVIDERS.map((provider) => (
+        <ProviderLogo
+          key={provider}
+          provider={provider}
+          className={cn(
+            "transition-[opacity,filter,scale] duration-300 ease-out",
+            provider === activeProvider ? "scale-110" : "scale-90 opacity-40 grayscale",
+          )}
+        />
+      ))}
+    </span>
   );
 }
 

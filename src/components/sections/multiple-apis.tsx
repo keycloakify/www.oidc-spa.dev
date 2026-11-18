@@ -1,58 +1,89 @@
 import { CodeLines } from "#components/code-block";
 import { CopyButton } from "#components/copy-button";
 import { ExternalLink } from "#components/external-link";
+import { ProviderLogo } from "#components/provider-logos";
 import { Reveal } from "#components/reveal";
 import { SectionHeading } from "#components/section-heading";
+import { Tabs, TabsList, TabsTrigger } from "#components/ui/tabs";
 import { docs } from "#constants";
+import { type Provider, PROVIDERS } from "#lib/providers";
 import { sectionClassName } from "#lib/section";
 import { cn } from "#lib/utils";
 import { DatabaseIcon, GlobeIcon, KeyRoundIcon, type LucideIcon, ServerIcon } from "lucide-react";
 import { useState } from "react";
 
-const CODE = `import { getOidc } from "./oidc";
+const APIS: { Icon: LucideIcon; name: string; variable: string }[] = [
+  { Icon: ServerIcon, name: "MyApi", variable: "myApiToken" },
+  { Icon: KeyRoundIcon, name: "Vault", variable: "vaultToken" },
+  { Icon: DatabaseIcon, name: "AWS S3", variable: "s3Token" },
+];
+
+/** How each platform tells which API a token is for: the request, and the audience it yields. */
+const TOKEN_REQUESTS: Record<Provider, { request: string; audience: string }[]> = {
+  Keycloak: [
+    { request: `scopes: ["resource:myapp-api"]`, audience: "myapp-api" },
+    { request: `scopes: ["resource:vault"]`, audience: "vault" },
+    { request: `scopes: ["resource:aws-s3"]`, audience: "sts.amazonaws.com" },
+  ],
+  Auth0: [
+    {
+      request: `authorizationParams: { audience: "https://dashboard.mycompany.com/api" }`,
+      audience: "https://dashboard.mycompany.com/api",
+    },
+    {
+      request: `authorizationParams: { audience: "https://vault.mycompany.com" }`,
+      audience: "https://vault.mycompany.com",
+    },
+    {
+      request: `authorizationParams: { audience: "https://s3.amazon.com" }`,
+      audience: "https://s3.amazon.com",
+    },
+  ],
+  "Microsoft Entra ID": [
+    {
+      request: `scopes: ["https://dashboard.mycompany.com/api/access_as_user"]`,
+      audience: "xxxx-xxxx-xxxx",
+    },
+    {
+      request: `scopes: ["https://vault.mycompany.com/access_as_user"]`,
+      audience: "yyyy-yyyy-yyyy",
+    },
+    {
+      request: `scopes: ["https://s3.amazon.com/access_as_user"]`,
+      audience: "zzzz-zzzz-zzzz",
+    },
+  ],
+};
+
+/** Each token request takes three lines, after a four line header and a blank line between them. */
+function getCode(provider: Provider): string {
+  const requests = TOKEN_REQUESTS[provider]
+    .map(
+      ({ request }, index) => `const ${APIS[index].variable} = await oidc.getAccessToken({
+    ${request}
+});`,
+    )
+    .join("\n\n");
+
+  return `import { getOidc } from "./oidc";
 
 const oidc = await getOidc({ assert: "user logged in" });
 
-const myApiToken = await oidc.getAccessToken({
-    scopes: ["resource:myapp-api"]
-});
+${requests}`;
+}
 
-const vaultToken = await oidc.getAccessToken({
-    scopes: ["resource:vault"]
-});
-
-const s3Token = await oidc.getAccessToken({
-    scopes: ["resource:aws-s3"]
-});`;
-
-const apis: {
-  Icon: LucideIcon;
-  name: string;
-  scope: string;
-  audience: string;
-  /** Lines of `CODE` that request this API's token. */
-  lines: [first: number, last: number];
-}[] = [
-  {
-    Icon: ServerIcon,
-    name: "MyApi",
-    scope: "resource:myapp-api",
-    audience: "myapp-api",
-    lines: [4, 6],
-  },
-  { Icon: KeyRoundIcon, name: "Vault", scope: "resource:vault", audience: "vault", lines: [8, 10] },
-  {
-    Icon: DatabaseIcon,
-    name: "AWS S3",
-    scope: "resource:aws-s3",
-    audience: "sts.amazonaws.com",
-    lines: [12, 14],
-  },
-];
+/** First and last line of the request for the API at `index`. */
+function getRequestLines(index: number): [first: number, last: number] {
+  const first = 4 + index * 4;
+  return [first, first + 2];
+}
 
 export function MultipleApis() {
+  const [provider, setProvider] = useState<Provider>("Keycloak");
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
-  const activeApi = activeIndex === undefined ? undefined : apis[activeIndex];
+
+  const code = getCode(provider);
+  const activeLines = activeIndex === undefined ? undefined : getRequestLines(activeIndex);
 
   return (
     <section className={sectionClassName}>
@@ -66,25 +97,49 @@ export function MultipleApis() {
         </SectionHeading>
       </Reveal>
 
-      <div className="mx-auto mt-12 grid max-w-6xl items-center gap-10 sm:mt-16 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+      <div className="mx-auto mt-12 grid max-w-6xl items-center gap-10 sm:mt-16 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
         <Reveal>
-          <TokenWallet activeIndex={activeIndex} onActiveIndexChange={setActiveIndex} />
+          <TokenWallet
+            provider={provider}
+            activeIndex={activeIndex}
+            onActiveIndexChange={setActiveIndex}
+          />
         </Reveal>
         <Reveal className="flex min-w-0 flex-col gap-3">
-          <div className="overflow-hidden rounded-xl border bg-card text-card-foreground">
-            <div className="flex h-10 items-center justify-between gap-3 border-b bg-muted/40 ps-4 pe-1.5">
-              <span className="font-mono text-xs text-muted-foreground">src/api.ts</span>
-              <CopyButton text={CODE} />
+          <Tabs
+            value={provider}
+            onValueChange={(value) => setProvider(value as Provider)}
+            className="gap-0 overflow-hidden rounded-xl border bg-card text-card-foreground"
+          >
+            <div className="flex min-h-11 items-center justify-between gap-3 border-b bg-muted/40 ps-2 pe-1.5">
+              <TabsList
+                variant="line"
+                aria-label="IAM platform"
+                className="no-scrollbar h-11 max-w-full overflow-x-auto overflow-y-hidden"
+              >
+                {PROVIDERS.map((option) => (
+                  <TabsTrigger key={option} value={option} className="px-2">
+                    <ProviderLogo provider={option} className="size-3.5" />
+                    {option}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              <span className="flex items-center gap-2">
+                <span className="font-mono text-xs text-muted-foreground max-xl:hidden">
+                  src/api.ts
+                </span>
+                <CopyButton text={code} />
+              </span>
             </div>
             <CodeLines
-              code={CODE}
+              code={code}
               isLineDimmed={
-                activeApi === undefined
+                activeLines === undefined
                   ? undefined
-                  : (index) => index < activeApi.lines[0] || index > activeApi.lines[1]
+                  : (index) => index < activeLines[0] || index > activeLines[1]
               }
             />
-          </div>
+          </Tabs>
           <ExternalLink
             href={docs("/features/talking-to-multiple-apis-with-different-access-tokens")}
             className="self-start text-sm"
@@ -99,10 +154,11 @@ export function MultipleApis() {
 
 /** One row per API, each with its own token. Pointing at a row highlights its request. */
 function TokenWallet(props: {
+  provider: Provider;
   activeIndex: number | undefined;
   onActiveIndexChange: (index: number | undefined) => void;
 }) {
-  const { activeIndex, onActiveIndexChange } = props;
+  const { provider, activeIndex, onActiveIndexChange } = props;
 
   return (
     <div className="overflow-hidden rounded-xl border bg-card text-card-foreground">
@@ -112,13 +168,14 @@ function TokenWallet(props: {
         </span>
         <span className="flex flex-col">
           <span className="text-sm font-medium">Your app</span>
-          <span className="font-mono text-xs text-muted-foreground">One token per API</span>
+          <span className="text-xs text-muted-foreground">One access token per API</span>
         </span>
       </div>
 
       <ul className="flex flex-col p-1.5">
-        {apis.map(({ Icon, name, scope, audience }, index) => {
+        {APIS.map(({ Icon, name }, index) => {
           const isActive = activeIndex === index;
+          const { audience } = TOKEN_REQUESTS[provider][index];
 
           return (
             <li key={name}>
@@ -143,14 +200,11 @@ function TokenWallet(props: {
                 >
                   <Icon aria-hidden="true" className="size-4" />
                 </span>
-                <span className="flex min-w-0 flex-1 flex-col">
+                <span className="flex min-w-0 flex-1 flex-col gap-1">
                   <span className="text-sm font-medium">{name}</span>
-                  <span className="truncate font-mono text-[0.6875rem] text-muted-foreground">
-                    {scope}
+                  <span className="self-start rounded-md border bg-background px-1.5 py-0.5 font-mono text-[0.6875rem] break-all text-muted-foreground">
+                    aud: {audience}
                   </span>
-                </span>
-                <span className="max-w-[45%] truncate rounded-md border bg-background px-1.5 py-0.5 font-mono text-[0.6875rem] text-muted-foreground">
-                  aud: {audience}
                 </span>
               </button>
             </li>
