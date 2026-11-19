@@ -5,7 +5,7 @@ import { Reveal } from "#components/reveal";
 import { SectionHeading } from "#components/section-heading";
 import { TechLogo } from "#components/tech-logos";
 import { Button } from "#components/ui/button";
-import { docs, DOCUMENTATION_URL, EXAMPLES_URL } from "#constants";
+import { docs, DOCUMENTATION_URL, EXAMPLES_URL, GITHUB_REPO_URL } from "#constants";
 import { getProviderGuideUrl, type Provider, PROVIDERS } from "#lib/providers";
 import { GETTING_STARTED_ID, sectionClassName } from "#lib/section";
 import { cn } from "#lib/utils";
@@ -111,29 +111,6 @@ function OptionLogo(props: { option: string }) {
   return <TechLogo name={LOGO_NAMES[option] ?? option} />;
 }
 
-/** Documentation page for setting up oidc-spa in the picked frontend. */
-function getFrontendGuidePath(stack: Stack, router: Router): string {
-  switch (stack) {
-    case "Vite + React":
-      return router === "React Router"
-        ? "/integration-guides/react-router"
-        : "/integration-guides/tanstack-router-start";
-    case "TanStack Start":
-      return "/integration-guides/tanstack-router-start/tanstack-start";
-    case "Angular":
-      return "/integration-guides/angular";
-    case "Next.js":
-      return "/integration-guides/next.js";
-    case "Nuxt":
-      return "/integration-guides/nuxt";
-    case "React Router Framework":
-      return "/integration-guides/react-router";
-    case "Vite + Vue":
-    case "Vite + Other UI Framework":
-      return "/integration-guides/usage";
-  }
-}
-
 /** Folder of the closest example in the oidc-spa repository. */
 function getExampleFolder(stack: Stack, router: Router, deployment: Deployment): string {
   switch (stack) {
@@ -207,6 +184,9 @@ function getRenderingNotice(stack: Stack): React.ReactNode {
   }
 }
 
+/** Tells coding agents which example to start from, and how to adapt it to the picked stack. */
+const AGENTS_GUIDE_URL = `${GITHUB_REPO_URL}/blob/v11_overhaul/examples/AGENTS.md`;
+
 /** A line of the prompt; `choice` is the part that comes from what was picked. */
 type PromptLine = { prefix: string; choice?: string; suffix?: string };
 
@@ -219,14 +199,9 @@ function buildPromptLines(params: {
 }): PromptLine[] {
   const { platform, stack, router, backend, deployment } = params;
 
-  const guideUrls = [
-    getProviderGuideUrl(isProvider(platform) ? platform : "Other"),
-    docs(getFrontendGuidePath(stack, router ?? "TanStack Router")),
-    BACKEND_GUIDE_URLS[backend],
-  ];
-
   return [
-    { prefix: "Set up a fresh todo app with this stack:" },
+    { prefix: "Build a fresh, runnable todo app in this workspace using the stack below." },
+    { prefix: "" },
     platform === "Keycloak"
       ? {
           prefix: "- IAM platform: ",
@@ -243,12 +218,11 @@ function buildPromptLines(params: {
     { prefix: "- API backend: ", choice: backend },
     ...(deployment === undefined ? [] : [{ prefix: "- Deployment: ", choice: deployment }]),
     { prefix: "" },
-    { prefix: "Start from the most relevant example in:" },
-    { prefix: EXAMPLES_URL },
-    { prefix: "" },
-    { prefix: "Follow these guides:" },
-    // The frontend guide also covers the framework's own API backend.
-    ...[...new Set(guideUrls)].map((url) => ({ prefix: url })),
+    {
+      prefix:
+        "Read this oidc-spa guide first. It explains which example to start from and how to adapt it to the selected stack.",
+    },
+    { prefix: AGENTS_GUIDE_URL },
   ];
 }
 
