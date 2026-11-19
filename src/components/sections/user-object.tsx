@@ -1,4 +1,4 @@
-import { CodeBlock, CodeLines } from "#components/code-block";
+import { CodeLines } from "#components/code-block";
 import { CopyButton } from "#components/copy-button";
 import { ExternalLink } from "#components/external-link";
 import { Reveal } from "#components/reveal";
@@ -6,6 +6,7 @@ import { SectionHeading } from "#components/section-heading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "#components/ui/tabs";
 import { docs } from "#constants";
 import { sectionClassName } from "#lib/section";
+import { cn } from "#lib/utils";
 import { useState } from "react";
 
 const USER_TYPE = `// App-specific user model exposed by \`useUser()\`.
@@ -23,13 +24,14 @@ const RUNTIME_CONFIGS = `    .withRuntimeConfigs({
     })
     .createUtils();`;
 
-type Example = { value: string; label: string; code: string };
+type Example = { value: string; label: string; fileName: string; code: string };
 
 // From https://docs.oidc-spa.dev/docs/v11/features/user
-const examples: Example[] = [
+const creations: Example[] = [
   {
     value: "claims",
     label: "Token claims",
+    fileName: "src/oidc.ts",
     code: `import { oidcSpa } from "oidc-spa/client";
 import { decodeJwt } from "oidc-spa/decode-jwt";
 
@@ -52,6 +54,7 @@ ${RUNTIME_CONFIGS}`,
   {
     value: "userinfo",
     label: "UserInfo",
+    fileName: "src/oidc.ts",
     code: `import { oidcSpa } from "oidc-spa/client";
 
 ${USER_TYPE}
@@ -73,6 +76,7 @@ ${RUNTIME_CONFIGS}`,
   {
     value: "api",
     label: "Your API",
+    fileName: "src/oidc.ts",
     code: `import { oidcSpa } from "oidc-spa/client";
 
 ${USER_TYPE}
@@ -96,6 +100,7 @@ export const fetchWithAuth: typeof fetch = async (input, init) => {
   {
     value: "keycloak",
     label: "Keycloak User Profile",
+    fileName: "src/oidc.ts",
     code: `import { oidcSpa } from "oidc-spa/client";
 import { createKeycloakUtils } from "oidc-spa/keycloak-utils";
 
@@ -119,42 +124,62 @@ ${RUNTIME_CONFIGS}`,
   },
 ];
 
-const USAGE_CODE = `import { getOidc, useOidc } from "~/oidc";
-
-async function greetings() {
-    const oidc = await getOidc();
-
-    if (!oidc.isUserLoggedIn) {
-        return;
-    }
-
+const usages: Example[] = [
+  {
+    value: "agnostic",
+    label: "Framework agnostic",
+    fileName: "src/main.ts",
+    code: `async function updateUser() {
+    const oidc = await getOidc({ assert: "user logged in" });
     const user = await oidc.getUser();
-
-    alert(\`Hello \${user.displayName}\`);
-}
-
-function Greeting() {
-    const { isUserLoggedIn, user } = useOidc();
-
-    if (!isUserLoggedIn) {
-        return null;
-    }
-
+    document.querySelector("img").src = user.avatarImgUrl;
+    document.querySelector("h1").textContent = \`Hello \${user.displayName}\`;
+}`,
+  },
+  {
+    value: "react",
+    label: "React",
+    fileName: "src/components/ShowUser.tsx",
+    code: `function ShowUser() {
+    const { user } = useOidc({ assert: "user logged in" });
     return (
         <div>
             <img src={user.avatarImgUrl} />
             <h1>Hello {user.displayName}</h1>
         </div>
     );
-}`;
+}`,
+  },
+  {
+    value: "vue",
+    label: "Vue",
+    fileName: "src/components/ShowUser.vue",
+    code: `<script setup>
+const { user } = useOidc({ assert: "user logged in" });
+</script>
 
-// Every tab gets the height of the longest snippet, so switching doesn't move the page.
-const maxLineCount = Math.max(...examples.map(({ code }) => code.split("\n").length));
+<template>
+    <img :src="user.avatarImgUrl" />
+    <h1>Hello {{ user.displayName }}</h1>
+</template>`,
+  },
+  {
+    value: "angular",
+    label: "Angular",
+    fileName: "src/app/show-user.component.ts",
+    code: `@Component({
+    template: \`
+        <img [src]="oidc.user().avatarImgUrl" />
+        <h1>Hello {{ oidc.user().displayName }}</h1>
+    \`
+})
+class ShowUserComponent {
+    readonly oidc = injectOidc({ assert: "user logged in" });
+}`,
+  },
+];
 
 export function UserObject() {
-  const [selectedValue, setSelectedValue] = useState(examples[0].value);
-  const selectedExample = examples.find(({ value }) => value === selectedValue) ?? examples[0];
-
   return (
     <section className={sectionClassName}>
       <Reveal className="flex flex-col items-center gap-6">
@@ -172,48 +197,65 @@ export function UserObject() {
       <div className="mx-auto mt-12 grid max-w-6xl gap-10 sm:mt-16 lg:grid-cols-2 lg:gap-6">
         <Reveal className="flex min-w-0 flex-col gap-3">
           <StepLabel number={1}>Create it, from the source of your choice</StepLabel>
-          <Tabs
-            value={selectedValue}
-            onValueChange={(value) => setSelectedValue(String(value))}
-            className="flex-1 gap-0 overflow-hidden rounded-xl border bg-card text-card-foreground"
-          >
-            <div className="flex min-h-11 items-center justify-between gap-3 border-b bg-muted/40 ps-2 pe-1.5">
-              <TabsList
-                variant="line"
-                aria-label="Where the user comes from"
-                className="no-scrollbar h-11 max-w-full overflow-x-auto overflow-y-hidden"
-              >
-                {examples.map(({ value, label }) => (
-                  <TabsTrigger key={value} value={value} className="px-2">
-                    {label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-              <span className="flex items-center gap-2">
-                <span className="font-mono text-xs text-muted-foreground max-xl:hidden">
-                  src/oidc.ts
-                </span>
-                <CopyButton text={selectedExample.code} />
-              </span>
-            </div>
-
-            {examples.map(({ value, code }) => (
-              <TabsContent key={value} value={value}>
-                <CodeLines
-                  code={code}
-                  style={{ minHeight: `calc(${maxLineCount} * 1.5rem + 2rem)` }}
-                />
-              </TabsContent>
-            ))}
-          </Tabs>
+          <TabbedCode
+            ariaLabel="Where the user comes from"
+            examples={creations}
+            className="flex-1"
+          />
         </Reveal>
 
-        <Reveal className="flex min-w-0 flex-col gap-3">
+        <Reveal className="flex min-w-0 flex-col gap-3 lg:sticky lg:top-24 lg:self-start">
           <StepLabel number={2}>Use it anywhere, fully typed</StepLabel>
-          <CodeBlock code={USAGE_CODE} fileName="src/components/Greeting.tsx" className="flex-1" />
+          <TabbedCode ariaLabel="Where the user is used" examples={usages} />
         </Reveal>
       </div>
     </section>
+  );
+}
+
+/** Code examples in tabs, each tab as tall as the longest so switching doesn't move the page. */
+function TabbedCode(props: { ariaLabel: string; examples: Example[]; className?: string }) {
+  const { ariaLabel, examples, className } = props;
+
+  const [selectedValue, setSelectedValue] = useState(examples[0].value);
+  const selectedExample = examples.find(({ value }) => value === selectedValue) ?? examples[0];
+  const maxLineCount = Math.max(...examples.map(({ code }) => code.split("\n").length));
+
+  return (
+    <Tabs
+      value={selectedValue}
+      onValueChange={(value) => setSelectedValue(String(value))}
+      className={cn(
+        "gap-0 overflow-hidden rounded-xl border bg-card text-card-foreground",
+        className,
+      )}
+    >
+      <div className="flex min-h-11 items-center justify-between gap-3 border-b bg-muted/40 ps-2 pe-1.5">
+        <TabsList
+          variant="line"
+          aria-label={ariaLabel}
+          className="no-scrollbar h-11 max-w-full overflow-x-auto overflow-y-hidden"
+        >
+          {examples.map(({ value, label: tabLabel }) => (
+            <TabsTrigger key={value} value={value} className="px-2">
+              {tabLabel}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        <span className="flex items-center gap-2">
+          <span className="truncate font-mono text-xs text-muted-foreground max-xl:hidden">
+            {selectedExample.fileName}
+          </span>
+          <CopyButton text={selectedExample.code} />
+        </span>
+      </div>
+
+      {examples.map(({ value, code }) => (
+        <TabsContent key={value} value={value}>
+          <CodeLines code={code} style={{ minHeight: `calc(${maxLineCount} * 1.5rem + 2rem)` }} />
+        </TabsContent>
+      ))}
+    </Tabs>
   );
 }
 

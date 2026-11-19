@@ -26,11 +26,19 @@ export const { useOidc, getOidc } = oidcSpa
   },
   {
     mode: "mock",
-    code: `        if (isMock) return { displayName: "John Doe", avatar: "/default-avatar.svg" };`,
+    code: `        if (isMock) {
+            return {
+                displayName: "John Doe",
+                avatar: "/default-avatar.svg"
+            };
+        }`,
   },
   {
     mode: "real",
-    code: `        return { displayName: idTokenClaims.name, avatar: idTokenClaims.picture };`,
+    code: `        return {
+            displayName: idTokenClaims.name,
+            avatar: idTokenClaims.picture
+        };`,
   },
   {
     mode: "none",
@@ -40,7 +48,10 @@ export const { useOidc, getOidc } = oidcSpa
   { mode: "mock", code: `        if (isMock) return { id: "1234", isAdmin: true };` },
   {
     mode: "real",
-    code: `        return { id: accessTokenClaims.sub, isAdmin: accessTokenClaims.roles.includes("admin") };`,
+    code: `        return {
+            id: accessTokenClaims.sub,
+            isAdmin: accessTokenClaims.roles.includes("admin")
+        };`,
   },
   {
     mode: "none",
@@ -50,7 +61,10 @@ export const { useOidc, getOidc } = oidcSpa
   {
     mode: "mock",
     code: `        if (process.env["OIDC_MOCK"] === "true") {
-            return { mode: "mock", client: { isUserInitiallyLoggedIn: true } };
+            return {
+                mode: "mock",
+                client: { isUserInitiallyLoggedIn: true }
+            };
         }`,
   },
   {
