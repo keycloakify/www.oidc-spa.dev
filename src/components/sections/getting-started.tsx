@@ -138,27 +138,17 @@ function getRenderingNotice(stack: Stack): React.ReactNode {
   switch (stack) {
     case "TanStack Start":
     case "Next.js": {
-      const [name, href] =
-        stack === "TanStack Start"
-          ? ["TanStack Start example", "https://example-tanstack-start.oidc-spa.dev/"]
-          : ["Next.js example", "https://example-nextjs.oidc-spa.dev/"];
+      const exampleUrl =
+        stack === "Next.js"
+          ? "https://next.oidc-spa.dev/"
+          : "https://example-tanstack-start.oidc-spa.dev/";
 
       return (
-        <>
-          <p>
-            oidc-spa is a great fit if you prerender the layout and public pages at build time and
-            render authenticated content in the browser.
-          </p>
-          <p>
-            Public pages, such as a home or pricing page, and the layout can also be server
-            rendered. Authenticated user data cannot be rendered through SSR or Server Components in
-            this model, it is loaded and rendered on the client.
-          </p>
-          <p>
-            Try the <ExternalLink href={href}>{name}</ExternalLink>: log in with GitHub, disable
-            JavaScript, and see what the server actually serves.
-          </p>
-        </>
+        <p>
+          With oidc-spa, protected content renders only in the browser. {stack} still prerenders the
+          shared layout and public pages by default, so visitors see them right away. Try the{" "}
+          <ExternalLink href={exampleUrl}>live example</ExternalLink> to see for yourself.
+        </p>
       );
     }
     case "Nuxt":
