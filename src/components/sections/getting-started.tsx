@@ -196,7 +196,6 @@ function buildPromptLines(params: {
       ? {
           prefix: "- IAM platform: ",
           choice: "Keycloak",
-          suffix: " (use offline token validation)",
         }
       : isProvider(platform)
         ? { prefix: "- IAM platform: ", choice: platform }
