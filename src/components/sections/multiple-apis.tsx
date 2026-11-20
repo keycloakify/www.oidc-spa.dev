@@ -14,7 +14,7 @@ import { useState } from "react";
 
 const APIS: { Icon: LucideIcon; name: string; variable: string }[] = [
   { Icon: ServerIcon, name: "MyApi", variable: "myApiToken" },
-  { Icon: KeyRoundIcon, name: "Vault", variable: "vaultToken" },
+  { Icon: KeyRoundIcon, name: "Open WebUI", variable: "openWebUiToken" },
   { Icon: DatabaseIcon, name: "AWS S3", variable: "s3Token" },
 ];
 
@@ -22,8 +22,8 @@ const APIS: { Icon: LucideIcon; name: string; variable: string }[] = [
 const TOKEN_REQUESTS: Record<Provider, { request: string; audience: string }[]> = {
   Keycloak: [
     { request: `scopes: ["resource:myapp-api"]`, audience: "myapp-api" },
-    { request: `scopes: ["resource:vault"]`, audience: "vault" },
     { request: `scopes: ["resource:aws-s3"]`, audience: "sts.amazonaws.com" },
+    { request: `scopes: ["resource:openwebui"],\n    disableDPoP: true`, audience: "openwebui" },
   ],
   Auth0: [
     {
@@ -31,12 +31,12 @@ const TOKEN_REQUESTS: Record<Provider, { request: string; audience: string }[]> 
       audience: "https://dashboard.mycompany.com/api",
     },
     {
-      request: `authorizationParams: { audience: "https://vault.mycompany.com" }`,
-      audience: "https://vault.mycompany.com",
-    },
-    {
       request: `authorizationParams: { audience: "https://s3.amazon.com" }`,
       audience: "https://s3.amazon.com",
+    },
+    {
+      request: `authorizationParams: { audience: "https://ai.mycompany.com" },\n    disableDPoP: true`,
+      audience: "https://ai.mycompany.com",
     },
   ],
   "Microsoft Entra ID": [
@@ -45,12 +45,12 @@ const TOKEN_REQUESTS: Record<Provider, { request: string; audience: string }[]> 
       audience: "xxxx-xxxx-xxxx",
     },
     {
-      request: `scopes: ["https://vault.mycompany.com/access_as_user"]`,
-      audience: "yyyy-yyyy-yyyy",
-    },
-    {
       request: `scopes: ["https://s3.amazon.com/access_as_user"]`,
       audience: "zzzz-zzzz-zzzz",
+    },
+    {
+      request: `scopes: ["https://ai.mycompany.com/access_as_user"],\n    disableDPoP: true`,
+      audience: "yyyy-yyyy-yyyy",
     },
   ],
 };
