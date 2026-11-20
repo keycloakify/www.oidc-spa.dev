@@ -141,7 +141,7 @@ function getRenderingNotice(stack: Stack): React.ReactNode {
       const exampleUrl =
         stack === "Next.js"
           ? "https://next.oidc-spa.dev/"
-          : "https://example-tanstack-start.oidc-spa.dev/";
+          : "https://tanstack-start.oidc-spa.dev/";
 
       return (
         <p>

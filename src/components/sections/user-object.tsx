@@ -24,7 +24,13 @@ const RUNTIME_CONFIGS = `    .withRuntimeConfigs({
     })
     .createUtils();`;
 
-type Example = { value: string; label: string; fileName: string; code: string };
+type Example = {
+  value: string;
+  label: string;
+  fileName: string;
+  code: string;
+  isLineDimmed?: (lineIndex: number) => boolean;
+};
 
 // From https://docs.oidc-spa.dev/docs/v11/features/user
 const creations: Example[] = [
@@ -82,7 +88,8 @@ ${RUNTIME_CONFIGS}`,
 ${USER_TYPE}
 
 export const { getOidc } = oidcSpa
-    .withUser<User>(() => fetchWithAuth("/api/user").then(r => r.json()))
+    .withUser<User>(() => fetchWithAuth("/api/user")
+        .then(r => r.json()))
 ${RUNTIME_CONFIGS}
 
 // Attaches the access token when logged in; otherwise behaves like fetch.
@@ -122,7 +129,22 @@ export const { getOidc } = oidcSpa
     })
 ${RUNTIME_CONFIGS}`,
   },
-];
+].map((example) => {
+  const lines = example.code.split("\n");
+  const userTypeStart = lines.indexOf(USER_TYPE.split("\n")[0]);
+  const userTypeEnd = userTypeStart + USER_TYPE.split("\n").length;
+  const withUserStart = lines.findIndex((line) => line.includes(".withUser<User>"));
+  const withUserEnd = lines.findIndex((line) => line.includes(".withRuntimeConfigs("));
+
+  return {
+    ...example,
+    isLineDimmed: (index: number) =>
+      !(
+        (index >= userTypeStart && index < userTypeEnd) ||
+        (index >= withUserStart && index < withUserEnd)
+      ),
+  };
+});
 
 const usages: Example[] = [
   {
@@ -133,7 +155,8 @@ const usages: Example[] = [
     const oidc = await getOidc({ assert: "user logged in" });
     const user = await oidc.getUser();
     document.querySelector("img").src = user.avatarImgUrl;
-    document.querySelector("h1").textContent = \`Hello \${user.displayName}\`;
+    document.querySelector("h1").textContent = 
+      \`Hello \${user.displayName}\`;
 }`,
   },
   {
@@ -250,9 +273,13 @@ function TabbedCode(props: { ariaLabel: string; examples: Example[]; className?:
         </span>
       </div>
 
-      {examples.map(({ value, code }) => (
+      {examples.map(({ value, code, isLineDimmed }) => (
         <TabsContent key={value} value={value}>
-          <CodeLines code={code} style={{ minHeight: `calc(${maxLineCount} * 1.5rem + 2rem)` }} />
+          <CodeLines
+            code={code}
+            isLineDimmed={isLineDimmed}
+            style={{ minHeight: `calc(${maxLineCount} * 1.5rem + 2rem)` }}
+          />
         </TabsContent>
       ))}
     </Tabs>

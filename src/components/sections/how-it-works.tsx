@@ -28,6 +28,7 @@ const approaches: Approach[] = [
       { name: "Auth.js", href: "https://authjs.dev/" },
       { name: "nuxt-oidc-auth", href: "https://nuxtoidc.cloud/" },
       { name: "keycloak-connect", href: "https://www.npmjs.com/package/keycloak-connect" },
+      { name: "oidc-client-ts (with client secret)", href: "https://github.com/authts/oidc-client-ts" },
     ],
     description:
       "A confidential client with a client secret. The backend holds the tokens, the browser gets a session cookie.",
@@ -80,11 +81,11 @@ const approaches: Approach[] = [
     advantages: [
       {
         label: "Lightweight infrastructure",
-        detail: "The frontend communicates directly with the IAM platform.",
+        detail: "The frontend communicates directly with the IAM platform. No need of a backend session store.",
       },
       {
         label: "Static hosting on a CDN",
-        detail: "The frontend can be served as static files through a CDN.",
+        detail: "The frontend can be served as static files through a CDN. Public pages and layout can be pre rendered at build time.",
       },
       {
         label: "Calls OAuth APIs directly",
@@ -100,12 +101,12 @@ const approaches: Approach[] = [
       },
       {
         label: "Needs public client support",
-        detail: "Not every IAM platform supports the required public client configuration.",
+        detail: "Not every IAM platform check all the box to support public client securely. Example Clerk and WorkOS cannot in good conscience be recommended (yet) for this usecase.",
       },
       {
         label: "Tokens live in the browser",
         detail:
-          "This is what oidc-spa's security features are built for: in-memory tokens, DPoP, token substitution and browser runtime freeze.",
+          "This is what oidc-spa's security features are built for: in-memory tokens, DPoP, token substitution and browser runtime freeze, but they do not constitute a silver bullet.",
       },
     ],
     fit: {
